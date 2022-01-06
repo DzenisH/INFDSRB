@@ -1,0 +1,174 @@
+body{
+    margin:0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.container{
+    background-color: #00D7D1;
+    height: 9vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container2{
+    display: flex;
+    height: 100%;
+}
+
+.image{
+    width: 70px;
+    height: 100%;
+    cursor: pointer;
+}
+
+.navigation{
+    list-style: none;
+}
+.navigation li{
+    display: inline-block;
+    margin:0 10px;
+    border-radius: 3px;
+    padding: 10px;
+}
+.navigation li a{
+    color:white;
+    text-decoration: none;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+.navigation li:hover{
+    background-color:#06b4ae;
+    transition: .5s;
+}
+
+.active{
+    background-color:#06b4ae;
+}
+
+.bar{
+    width: 80%;
+    height: 80%;
+    cursor: pointer;
+}
+
+.checkbtn{
+    cursor: pointer;
+    display: none;
+}
+
+#relative{
+    position: relative;
+}
+#dropdown{
+    position: absolute;
+    flex-direction: column;
+    background-color: #00D7D1;
+    z-index: 100;
+    left: -30px;
+    top: 40px;
+    display: none;
+    padding: 10px;
+}
+
+#dropdown li {  
+    margin-left: 5px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.body{
+    height: 70vh;
+}
+
+
+.footer{
+    background-color: #3f4047;
+    width: 100%;
+    min-height: 21vh;
+}
+
+.container3{
+    display: flex;
+    justify-content: space-between;
+}
+
+.title{
+    font-size: 25px;
+    color:#0088d9;
+}
+
+.content{
+    font-size: 20px;
+    color:#0088d9;
+}
+
+.information{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer_container{
+    margin-left: 200px;
+    margin-right: 200px;
+    padding:50px;
+}
+
+.image2{
+    width: 120px;
+    height: 120px;
+    margin-left: -15px;
+}
+
+.icon{
+    border-radius: 50%;
+    background-color: #00D7D1;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.koper{
+    margin-left: 20px;
+}
+
+
+.phone{
+    color:#0088d9;
+}
+
+.gps{
+    color: #0088d9;
+}
+
+.call{
+    display: flex;
+    align-items: center;
+    margin-left: 50px;
+    margin-top: -20px;
+}
+
+.days{
+    margin:0px 0px 5px 0px;
+    color:#0088d9;
+    font-size: 18px;
+}
+
+.number{
+    margin: 0px;
+    font-weight: bold;
+    font-size: 24px;
+    color: #fff;
+}
+
+
+@media (max-width:1027px){
+    .navigation li a{
+        font-size: 16px;
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "name": "dzenis/wp-projekat",
+    "authors": [
+        {
+            "name": "Dzenis",
+            "email": "dzenishadzifejzovic@tpssjenica.com"
+        }
+    ],
+    "require": {},
+    "autoload":{
+        "psr-4":{
+            "app\\":"./" 
+        }
+    }
+}
