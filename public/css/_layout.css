@@ -4,6 +4,19 @@ body{
     box-sizing: border-box;
 }
 
+.loginContainer{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.loginContainer2{
+    margin:10px 10px 10px 0px;
+}
+
+.signup{
+    margin-left: 5px;
+}
+
 .container{
     background-color: #00D7D1;
     height: 9vh;
@@ -25,6 +38,8 @@ body{
 
 .navigation{
     list-style: none;
+    display: flex;
+    align-items: center;
 }
 .navigation li{
     display: inline-block;
@@ -61,6 +76,7 @@ body{
 
 #relative{
     position: relative;
+    align-self: center;
 }
 #dropdown{
     position: absolute;
@@ -79,15 +95,10 @@ body{
     padding: 10px;
 }
 
-.body{
-    height: 70vh;
-}
-
-
 .footer{
     background-color: #3f4047;
     width: 100%;
-    min-height: 21vh;
+    min-height: 400px;
 }
 
 .container3{
@@ -96,13 +107,14 @@ body{
 }
 
 .title{
-    font-size: 25px;
+    font-size: 28px;
     color:#0088d9;
 }
 
 .content{
-    font-size: 20px;
+    font-size: 22px;
     color:#0088d9;
+    margin-top: 10px;
 }
 
 .information{

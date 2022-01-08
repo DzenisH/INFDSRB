@@ -4,11 +4,22 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/css/_layout.css"/>
+    <link rel="stylesheet" href="/css/home.css"/>
+    <link rel="stylesheet" href="/css/login.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600;700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/681737ea39.js" crossorigin="anonymous"></script>
     <script src="/js/_layout.js" defer></script>
-    <title>NaMe</title>
+    <title>INFDSRB</title>
   </head>
 <body>
+<div class="loginContainer">
+  <div class="loginContainer2">
+    <a href="/login"  class="login">Login</a>
+    <a href="/signup" class="signup">Signup</a>
+  </div>
+</div>
 <header>
   <div class="container">
     <div class="container2">
