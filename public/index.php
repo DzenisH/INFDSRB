@@ -1,6 +1,7 @@
 <?php
 
 use app\controllers\AccountController;
+use app\controllers\ChatController;
 use app\controllers\HomeController;
 use app\controllers\PatientController;
 
@@ -14,5 +15,6 @@ $router->get('/',[HomeController::class,'index']);  //for route '/' call get met
 $router->get('/login',[AccountController::class,'login']);
 $router->post('/login',[AccountController::class,'login']);
 $router->get('/patients',[PatientController::class,'get']);
+$router->get('/chat',[ChatController::class,'getPatients']);
 
 $router->resolve();

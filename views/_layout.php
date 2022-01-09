@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/css/home.css"/>
     <link rel="stylesheet" href="/css/login.css"/>
     <link rel="stylesheet" href="/css/patients.css"/>
+    <link rel="stylesheet" href="/css/chat.css"/>
     <!--JS-->
     <script src="/js/_layout.js" defer></script>
     <!--GOOGLE FONTS-->
@@ -28,7 +29,7 @@
 <body>
 <div class="loginContainer">
   <div class="loginContainer2">
-    <a href="/">
+    <a href="/chat">
       <i class="fas fa-comments message_icon"></i>
     </a>
     <a href="/login"  class="login">Login</a>
