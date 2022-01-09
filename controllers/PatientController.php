@@ -14,7 +14,7 @@ class PatientController
     public function get(Router $router)  //get is name of action of our PatientController
     {
         $patients = $router->db->getPatients();
-        $router->renderView('home',[  //home is name of view.Because home is directly in folder view we don't have for example patients/home or something similar
+        $router->renderView('patients',[  //home is name of view.Because home is directly in folder view we don't have for example patients/home or something similar
             'patients' => $patients   //patients will be name of variable for accessing in our view
         ]);
     }

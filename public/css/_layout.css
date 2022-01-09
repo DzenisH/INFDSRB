@@ -4,6 +4,13 @@ body{
     box-sizing: border-box;
 }
 
+
+.message_icon{
+    margin-right: 7px;
+    cursor: pointer;
+    color: #000000;
+}
+
 .loginContainer{
     display: flex;
     justify-content: flex-end;

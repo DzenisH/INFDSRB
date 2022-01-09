@@ -1,21 +1,36 @@
+<?php
+// session_start();
+// session_destroy();
+?>
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--CSS-->
     <link rel="stylesheet" href="/css/_layout.css"/>
     <link rel="stylesheet" href="/css/home.css"/>
     <link rel="stylesheet" href="/css/login.css"/>
+    <link rel="stylesheet" href="/css/patients.css"/>
+    <!--JS-->
+    <script src="/js/_layout.js" defer></script>
+    <!--GOOGLE FONTS-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600;700&display=swap" rel="stylesheet">
+    <!--FONT AWESOME-->
     <script src="https://kit.fontawesome.com/681737ea39.js" crossorigin="anonymous"></script>
-    <script src="/js/_layout.js" defer></script>
     <title>INFDSRB</title>
   </head>
 <body>
 <div class="loginContainer">
   <div class="loginContainer2">
+    <a href="/">
+      <i class="fas fa-comments message_icon"></i>
+    </a>
     <a href="/login"  class="login">Login</a>
     <a href="/signup" class="signup">Signup</a>
   </div>
@@ -38,8 +53,12 @@
           </ul>
         </li>
         <li><a href="/">Education</a></li>
+        <?php if(isset($_SESSION["user"]) && ($_SESSION["user"])["type"] === "patient") :?>
         <li><a href="/">Doctors</a></li>
-        <li><a href="/">Pricelist</a></li>
+        <?php endif; ?>
+        <?php if(isset($_SESSION["user"]) && ($_SESSION["user"])["type"] === "doctor") :?>
+        <li><a href="patients">Patients</a></li>
+        <?php endif; ?>
         <li><a href="/">Contact Us</a></li>
       </ul>
       <label for="check" class="checkbtn">
