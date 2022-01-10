@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="/css/chat.css"/>
     <!--JS-->
     <script src="/js/_layout.js" defer></script>
+    <script src="/js/chat.js" defer></script>
     <!--GOOGLE FONTS-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,9 +30,11 @@
 <body>
 <div class="loginContainer">
   <div class="loginContainer2">
+    <?php if(isset($_SESSION["user"])) :?>
     <a href="/chat">
       <i class="fas fa-comments message_icon"></i>
     </a>
+    <?php endif; ?>
     <a href="/login"  class="login">Login</a>
     <a href="/signup" class="signup">Signup</a>
   </div>

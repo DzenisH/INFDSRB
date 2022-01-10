@@ -41,4 +41,40 @@ class Database
         }
         return $patient;
     }
+    public function getMessages()  //get all messages for current registered user
+    {
+        if(($_SESSION["user"])["type"]==="doctor"){
+            $statement = $this->pdo->prepare('SELECT * FROM message WHERE doctor_id=:id ORDER BY date_of_sending');
+        }else if(($_SESSION["user"])["type"] === "patient"){
+            $statement = $this->pdo->prepare('SELECT * FROM message WHERE patient_id=:id ORDER BY date_of_sending');
+        }
+        $statement->bindValue(':id',($_SESSION['user'])['id'] ?? 0);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getPatientMessages($id) //get all patients with corresponding id
+    {
+        $statement = $this->pdo->prepare('SELECT * FROM patient WHERE id=:id');
+        $statement->bindValue(":id",$id);
+        $statement->execute();
+        $patient =  $statement->fetchAll(PDO::FETCH_ASSOC)[0];
+        return $patient;
+    }
+
+    public function getPatient($id)  //get patient id
+    {
+        $statement = $this->pdo->prepare('SELECT * FROM patient WHERE id=:id');
+        $statement->bindValue(":id",$id);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getDoctor($id)
+    {
+        $statement = $this->pdo->prepare('SELECT * FROM doctor WHERE id=:id');
+        $statement->bindValue(":id",$id);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

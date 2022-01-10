@@ -15,6 +15,7 @@ $router->get('/',[HomeController::class,'index']);  //for route '/' call get met
 $router->get('/login',[AccountController::class,'login']);
 $router->post('/login',[AccountController::class,'login']);
 $router->get('/patients',[PatientController::class,'get']);
-$router->get('/chat',[ChatController::class,'getPatients']);
+$router->get('/chat',[ChatController::class,'get']);
+$router->post('/chat',[ChatController::class],'getCurrentPatient');
 
 $router->resolve();
