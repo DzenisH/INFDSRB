@@ -1,6 +1,8 @@
 <?php
 
 namespace app;
+
+use app\models\Message;
 use PDO;
 
 session_start();
@@ -53,26 +55,88 @@ class Database
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getPatientMessages($id) //get all patients with corresponding id
+    public function getPatient($id)  //get patient based on id
     {
         $statement = $this->pdo->prepare('SELECT * FROM patient WHERE id=:id');
         $statement->bindValue(":id",$id);
         $statement->execute();
-        $patient =  $statement->fetchAll(PDO::FETCH_ASSOC)[0];
-        return $patient;
-    }
-
-    public function getPatient($id)  //get patient id
-    {
-        $statement = $this->pdo->prepare('SELECT * FROM patient WHERE id=:id');
-        $statement->bindValue(":id",$id);
-        $statement->execute();
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
+        $patients = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return count($patients) === 0 ? '' : $patients[0];
     }
 
     public function getDoctor($id)
     {
         $statement = $this->pdo->prepare('SELECT * FROM doctor WHERE id=:id');
+        $statement->bindValue(":id",$id);
+        $statement->execute();
+        $doctors = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return count($doctors) === 0 ? '' : $doctors[0];
+    }
+
+    public function createMessage(Message $message)
+    {
+        $statement = $this->pdo->prepare("INSERT INTO message (date_of_sending,content,type_of_sender,doctor_id,patient_id)
+        VALUES (:date_of_sending,:content,:type_of_sender,:doctor_id,:patient_id)");
+        $statement->bindValue(":date_of_sending",$message->date_of_sending->format('Y-m-d H:i:s'));
+        $statement->bindValue(":content",$message->content);
+        $statement->bindValue(":type_of_sender",$message->type_of_sender);
+        $statement->bindValue(":doctor_id",$message->doctor_id);
+        $statement->bindValue(":patient_id",$message->patient_id);
+        $statement->execute();
+    }
+
+    public function getDoctors()
+    {
+        $statement = $this->pdo->prepare("SELECT * FROM doctor");
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getNumberOfPatients($id) //get number of patients for doctor based on id of doctor
+    {
+        $statement = $this->pdo->prepare("SELECT * FROM patient WHERE doctor_id=:id");
+        $statement->bindValue(":id",$id);
+        $statement->execute();
+        $patients = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return count($patients);
+    }
+
+    public function getTotalNumberOfPatients()
+    {
+        $statement = $this->pdo->prepare("SELECT * FROM patient");
+        $statement->execute();
+        $patients = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return count($patients);
+    }
+
+    public function getTotalNumberOfDoctors()
+    {
+        $statement = $this->pdo->prepare("SELECT * FROM doctor");
+        $statement->execute();
+        $doctors = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return count($doctors);
+    }
+
+    public function assignDoctor($id)
+    {
+        $statement = $this->pdo->prepare("UPDATE patient SET doctor_id = :doctor_id WHERE id=:id");
+        $statement->bindValue(":id",$_SESSION["user"]["id"]);
+        $statement->bindValue(":doctor_id",$id);
+        $statement->execute();
+    }
+
+    public function getCardboard($id) // $id presents id of patient
+    {
+        $statement = $this->pdo->prepare('SELECT * FROM cardboard WHERE patient_id=:id');
+        $statement->bindValue(":id",$id);
+        $statement->execute();
+        $cardboard = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return count($cardboard) === 0 ? '' : $cardboard[0];
+    }
+
+    public function getExaminations($id) //id presents id of cardboard
+    {
+        $statement = $this->pdo->prepare("SELECT * FROM examination WHERE cardboard_id=:id");
         $statement->bindValue(":id",$id);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);

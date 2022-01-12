@@ -3,35 +3,71 @@
 namespace app\controllers;
 
 use app\Router;
+use DateTime;
+use app\models\Message;
 
 class ChatController{
 
     public function get(Router $router){  //fuction for getting all patients to which doctor had already sent a message
-        $id = $_GET["id"] ?? 0;
-        $patient = $router->db->getPatient($id);
-        $doctor = $router->db->getDoctor($id);
         $patients = [];
+        $doctor = '';
+        $id = 0;
+        if($_SESSION["user"]["type"] === "patient"){
+            $doctor = $router->db->getDoctor($_SESSION["user"]["doctor_id"]);
+        }
         $messages = $router->db->getMessages();
+        if(count($messages) > 0){
+            $id = $_GET["id"] ?? $messages[0]["patient_id"];
+        }
+        $patient = $router->db->getPatient($id);
+        $_SESSION["currentPatient"] = $patient;
         foreach ($messages as $message) {
-            if(in_array($router->db->getPatientMessages($message["patient_id"]),$patients) !== true) //doctor can send multiple messages to same user
+            if(in_array($router->db->getPatient($message["patient_id"]),$patients) !== true) //doctor can send multiple messages to same user
             {
-                array_push($patients,$router->db->getPatientMessages($message["patient_id"]));
+                array_push($patients,$router->db->getPatient($message["patient_id"]));
             }
         }
         $router->renderView('chat',[
             "patients" => $patients,
-            "messages" => $messages,
-            "CurrentPatient" => count($patient) === 0 ? [] : $patient[0],
-            "CurrentDoctor" => count($doctor) === 0 ? [] : $doctor[0]
+            "messages" => count($messages) === 0 ? '' : $messages,
+            "CurrentPatient" => $patient === '' ? '' : $patient,
+            "doctor" => $doctor
         ]);
     }
 
-    // public function getCurrentPatient(Router $router)
-    // {
-    //     $id = $_POST["id"];
-    //     $patient = $router->db->getPatient($id);
-    //     $router->renderView('chat',[
-    //         "patient" => $patient //if there are no patient selected return an empty array 
-    //     ]);
-    // } 
+    public function sendMessage(Router $router)
+    {
+        $currentDate = new DateTime();
+        $messageData = [
+            'date_of_sending'=>$currentDate,
+            'content' => '',
+            'type_of_sender'=>'',
+            'doctor_id'=>'',
+            'patient_id'=>''
+        ];
+
+        $message = new Message();
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            if($_POST["type"] === "one"){
+                $messageData['content'] = $_POST['content'];
+                $messageData['type_of_sender'] = $_SESSION["user"]["type"];
+                $messageData["doctor_id"] = $_SESSION["user"]["type"] === "doctor" ? $_SESSION["user"]["id"] : $_SESSION["user"]["doctor_id"];
+                $messageData["patient_id"] = $_SESSION["user"]["type"] === "patient" ? $_SESSION["user"]["id"] : $_SESSION["currentPatient"]["id"];
+                $message->load($messageData);
+                $message->save();
+            }else{
+                $patients = $router->db->getPatients();
+                foreach ($patients as  $patient) {
+                    $messageData['content'] = $_POST['content'];
+                    $messageData['type_of_sender'] = $_SESSION["user"]["type"];
+                    $messageData["doctor_id"] = $_SESSION["user"]["type"] === "doctor" ? $_SESSION["user"]["id"] : $_SESSION["user"]["doctor_id"];
+                    $messageData["patient_id"] = $_SESSION["user"]["type"] === "patient" ? $_SESSION["user"]["id"] : $patient["id"];
+                    $message->load($messageData);
+                    $message->save();
+                }
+            }
+        }
+        header('Location:/chat');
+        $router->renderView('chat',[]);
+    }
 }

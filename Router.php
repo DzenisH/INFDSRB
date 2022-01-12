@@ -36,7 +36,7 @@ class Router
 
         if($method === 'GET'){
             $fn = $this->getRoutes[$currentUrl] ?? null; 
-        }else{
+        }else if($method === 'POST'){
             $fn = $this->postRoutes[$currentUrl] ?? null;  
         }
 

@@ -1,0 +1,17 @@
+.choice_btnSelect{
+    padding: 10px;
+    cursor: pointer;
+    background-color: #4FFFB0;
+    border:none;
+    font-weight: bold;
+}
+
+.choice_btnSelect:hover{
+   opacity: 0.8;
+}
+
+.choice_btnSelect:disabled{
+    background-color: gray;
+    opacity: 1;
+    cursor:context-menu;
+ }

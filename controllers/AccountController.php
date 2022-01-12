@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-session_start();
+// session_start();
 // session_destroy();
 
 use app\Router;
@@ -21,7 +21,11 @@ class AccountController
             $user = $router->db->checkLogin($loginData); //checkLogin will return user that loged in(if user don't succesufully loged in length of an array will be 0)
             if(count($user) !== 0){   
                 $_SESSION["user"] = $user[0]; //session variable user contain user that is currently loged in
-                header('Location:/');
+                if($_SESSION["user"]["type"] === "patient" && $_SESSION["user"]["doctor_id"] === null){
+                    header('Location:/choice');
+                }else{
+                    header('Location:/');
+                }
             }
         }
 

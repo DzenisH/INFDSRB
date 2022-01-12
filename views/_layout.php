@@ -1,5 +1,4 @@
 <?php
-// session_start();
 // session_destroy();
 ?>
 <!doctype html>
@@ -13,6 +12,8 @@
     <link rel="stylesheet" href="/css/login.css"/>
     <link rel="stylesheet" href="/css/patients.css"/>
     <link rel="stylesheet" href="/css/chat.css"/>
+    <link rel="stylesheet" href="/css/choice.css"/>
+    <link rel="stylesheet" href="/css/cardboard.css"/>
     <!--JS-->
     <script src="/js/_layout.js" defer></script>
     <script src="/js/chat.js" defer></script>
@@ -58,7 +59,8 @@
         </li>
         <li><a href="/">Education</a></li>
         <?php if(isset($_SESSION["user"]) && ($_SESSION["user"])["type"] === "patient") :?>
-        <li><a href="/">Doctors</a></li>
+        <li><a href="/choice">Doctors</a></li>
+        <li><a href="/cardboard">Medical record</a></li>
         <?php endif; ?>
         <?php if(isset($_SESSION["user"]) && ($_SESSION["user"])["type"] === "doctor") :?>
         <li><a href="patients">Patients</a></li>

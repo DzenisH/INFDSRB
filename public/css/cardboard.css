@@ -1,0 +1,49 @@
+.cardboard_container{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.cardboard_container2{
+    width: 800px;
+    height: 800px;
+    background-color: #fffacd;
+    padding-right: 20px;
+    padding-left: 20px;
+    border:2px solid #000000;
+}
+
+.cardboard_container3{
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    justify-content: space-between;
+}
+
+.cardboard_container4{
+    margin-top: 50px;
+}
+
+
+.cardboard_container5{
+    display: flex;
+    margin-top: 20px;
+}
+
+.cardboard_input{
+    background-color: transparent;
+    border:none;
+    border-bottom: 1px solid black;
+    margin-left: 20px;
+    font-size: 18px;
+
+}
+
+.cardboard_name{
+    font-size: 18px;
+}
+
+.cardboard_table{
+    margin-top: 15px;
+}
