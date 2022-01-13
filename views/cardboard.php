@@ -3,7 +3,7 @@
         <div class="cardboard_container3">
             <p>No of cardboard:1</p>
             <h2>MEDICAL RECORD</h2>
-            <p>Date:<?php echo $cardboard["date"] ?></p>
+            <p>Date:<?php echo $cardboard !== '' ? $cardboard["date"] : '' ?></p>
         </div>
         <div class="cardboard_container4">
             <div class="cardboard_container5">

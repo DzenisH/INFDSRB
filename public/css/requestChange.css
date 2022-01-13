@@ -1,0 +1,16 @@
+.requestChange_approve_btn{
+    background-color: green;
+    color: #fff;
+    border:none;
+    padding: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.requestChange_decline_btn{
+    background-color: red;
+    color: #fff;
+    border:none;
+    padding: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}

@@ -24,20 +24,22 @@ class Database
 
     public function getPatients() //get patients for current loged doctor
     {
-        $statement = $this->pdo->prepare('SELECT * FROM patient WHERE doctor_id=:id');
+        $statement = $this->pdo->prepare('SELECT * FROM patient WHERE doctor_id=:id AND accepted=1');
         $statement->bindValue(":id",($_SESSION["user"])["id"]);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
     public function checkLogin($login)  //return user or array with length of 0 if there are not user
     {
-        $statement = $this->pdo->prepare('SELECT * FROM patient WHERE email = :email AND password = :password');
+        $statement = $this->pdo->prepare('SELECT * FROM patient WHERE email = :email AND password = :password
+        AND accepted=1');
         $statement->bindValue(':email',$login['email']);
         $statement->bindValue(':password',$login['password']);
         $statement->execute();
         $patient =  $statement->fetchAll(PDO::FETCH_ASSOC);
         if(count($patient) === 0){
-            $statement2 = $this->pdo->prepare('SELECT * FROM doctor WHERE email = :email AND password = :password');
+            $statement2 = $this->pdo->prepare('SELECT * FROM doctor WHERE email = :email AND password = :password
+            AND accepted=1');
             $statement2->bindValue(':email',$login['email']);
             $statement2->bindValue(':password',$login['password']);
             $statement2->execute();
@@ -97,14 +99,14 @@ class Database
 
     public function getDoctors()
     {
-        $statement = $this->pdo->prepare("SELECT * FROM doctor");
+        $statement = $this->pdo->prepare("SELECT * FROM doctor WHERE accepted=1");
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getNumberOfPatients($id) //get number of patients for doctor based on id of doctor
     {
-        $statement = $this->pdo->prepare("SELECT * FROM patient WHERE doctor_id=:id");
+        $statement = $this->pdo->prepare("SELECT * FROM patient WHERE doctor_id=:id AND accepted=1");
         $statement->bindValue(":id",$id);
         $statement->execute();
         $patients = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -113,7 +115,7 @@ class Database
 
     public function getTotalNumberOfPatients()
     {
-        $statement = $this->pdo->prepare("SELECT * FROM patient");
+        $statement = $this->pdo->prepare("SELECT * FROM patient WHERE accepted=1");
         $statement->execute();
         $patients = $statement->fetchAll(PDO::FETCH_ASSOC);
         return count($patients);
@@ -121,7 +123,7 @@ class Database
 
     public function getTotalNumberOfDoctors()
     {
-        $statement = $this->pdo->prepare("SELECT * FROM doctor");
+        $statement = $this->pdo->prepare("SELECT * FROM doctor WHERE accepted=1");
         $statement->execute();
         $doctors = $statement->fetchAll(PDO::FETCH_ASSOC);
         return count($doctors);
@@ -194,4 +196,87 @@ class Database
         $statement->bindValue(":accepted",$doctor->accepted);
         $statement->execute();
     }
+
+    public function getNotAcceptedPatients()
+    {
+        $statement = $this->pdo->prepare('SELECT * FROM patient WHERE accepted=0');
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getNotAcceptedDoctors()
+    {
+        $statement = $this->pdo->prepare('SELECT * FROM doctor WHERE accepted=0');
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function acceptUser($id,$type)  //accept registration of user based on id
+    {
+        if($type === "patient"){
+            $statement = $this->pdo->prepare('UPDATE patient SET accepted=1 WHERE id=:id');
+            $statement->bindValue(':id',$id);
+            $statement->execute();
+        }
+        else{
+            $statement = $this->pdo->prepare('UPDATE doctor SET accepted=1 WHERE id=:id');
+            $statement->bindValue(':id',$id);
+            $statement->execute();
+        }
+    }
+
+    public function getAcceptedPatients()
+    {
+        $statement = $this->pdo->prepare('SELECT * FROM patient WHERE accepted=1');
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function deleteUser($id,$type)
+    {
+        if($type === "patient"){
+            $statement = $this->pdo->prepare('DELETE FROM patient  WHERE id=:id');
+            $statement->bindValue(':id',$id);
+            $statement->execute();
+        }
+        else{
+            $statement = $this->pdo->prepare('DELETE FROM doctor WHERE id=:id');
+            $statement->bindValue(':id',$id);
+            $statement->execute();
+        }
+    }
+
+    public function requestChange($id)
+    {
+        $statement = $this->pdo->prepare('UPDATE patient SET request_change=1,change_doctor_id=:doctor_id WHERE id=:id');
+        $statement->bindValue(':doctor_id',$id);
+        $statement->bindValue(':id',$_SESSION['user']['id']);
+        $statement->execute();
+    }
+
+    public function getRequestsChange()
+    {
+        $statement = $this->pdo->prepare('SELECT * FROM patient WHERE request_change=1');
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function postRequestChange($id,$type)
+    {
+        if($type === "approve"){
+            $statement1 = $this->pdo->prepare('SELECT * FROM patient WHERE id=:id');
+            $statement1->bindValue(':id',$id);
+            $statement1->execute();
+            $patient = $statement1->fetchAll(PDO::FETCH_ASSOC)[0];
+            $statement2 = $this->pdo->prepare('UPDATE patient SET doctor_id=:doctor_id,request_change=0,change_doctor_id=0 WHERE id=:id');
+            $statement2->bindValue(':doctor_id',$patient['change_doctor_id']);
+            $statement2->bindValue(':id',$id);
+            $statement2->execute();
+        }else if($type === "decline"){
+            $statement = $this->pdo->prepare('UPDATE patient SET request_change=0,change_doctor_id=0 WHERE id=:id');
+            $statement->bindValue(':id',$id);
+            $statement->execute();
+        }
+    }
+
 }

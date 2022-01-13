@@ -1,0 +1,51 @@
+.requests_btn{
+    background-color: green;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.requests_popup{
+    position: absolute;
+    top: 300px;
+    display: none;
+    width: 300px;
+    height: 100px;
+    flex-direction: column;
+    border: 2px solid gray;
+    border-radius: 20px;
+    padding: 5px;
+    box-shadow: 10px 10px 5px #aaaaaa;
+}
+
+.request_popup_text{
+    font-weight: bold;  
+    font-size: 18px;
+}
+
+.requests_btn_container{
+    align-self: flex-end;
+    margin-top: 30px;
+    margin-right: 10px;
+}
+
+.requests_btn_yes{
+    background-color: transparent;
+    border: none;
+    color: blue;
+    font-weight: bolder;
+    cursor: pointer;
+    font-size: 18px;
+
+}
+
+.requests_btn_no{
+    background-color: transparent;
+    border: none;
+    font-weight: bolder;
+    color: red;
+    cursor: pointer;
+    font-size: 18px;
+    margin-left: 10px;
+}

@@ -15,9 +15,10 @@
     <link rel="stylesheet" href="/css/choice.css"/>
     <link rel="stylesheet" href="/css/cardboard.css"/>
     <link rel="stylesheet" href="/css/signup.css"/>
+    <link rel="stylesheet" href="/css/requests.css"/>
+    <link rel="stylesheet" href="/css/requestChange.css"/>
     <!--JS-->
     <script src="/js/_layout.js" defer></script>
-    <script src="/js/chat.js" defer></script>
     <!--GOOGLE FONTS-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -61,6 +62,12 @@
         <li><a href="/">Education</a></li>
         <?php if(isset($_SESSION["user"]) && ($_SESSION["user"])["type"] === "admin") :?>
         <li><a href="/requests">Requests</a></li>
+        <?php endif; ?>
+        <?php if(isset($_SESSION["user"]) && ($_SESSION["user"])["type"] === "admin") :?>
+        <li><a href="/delete">Delete user</a></li>
+        <?php endif; ?>
+        <?php if(isset($_SESSION["user"]) && ($_SESSION["user"])["type"] === "admin") :?>
+        <li><a href="/request-change">Requests for changing doctor</a></li>
         <?php endif; ?>
         <?php if(isset($_SESSION["user"]) && ($_SESSION["user"])["type"] === "patient") :?>
         <li><a href="/choice">Doctors</a></li>

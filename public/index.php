@@ -5,9 +5,11 @@ use app\controllers\Cardboard;
 use app\controllers\CardboardController;
 use app\controllers\ChatController;
 use app\controllers\ChoiceController;
+use app\controllers\DeleteController;
 use app\controllers\HomeController;
 use app\controllers\PatientController;
-
+use app\controllers\RequestChangeController;
+use app\controllers\RequestController;
 use app\Router;
 
 require_once __DIR__.'/../vendor/autoload.php';
@@ -25,5 +27,11 @@ $router->post('/chat',[ChatController::class,'sendMessage']);
 $router->get('/choice',[ChoiceController::class,'get']);
 $router->post('/choice',[ChoiceController::class,'assignDoctor']);
 $router->get('/cardboard',[CardboardController::class,'get']);
+$router->get('/requests',[RequestController::class,'get']);
+$router->post('/requests',[RequestController::class,'accept']);
+$router->get('/delete',[DeleteController::class,'get']);
+$router->post('/delete',[DeleteController::class,'delete']);
+$router->get('/request-change',[RequestChangeController::class,'get']);
+$router->post('/request-change',[RequestChangeController::class,'request']);
 
 $router->resolve();

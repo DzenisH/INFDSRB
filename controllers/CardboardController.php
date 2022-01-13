@@ -9,7 +9,7 @@ class CardboardController
     {
         $patient = $router->db->getPatient($_SESSION["user"]["id"]);
         $cardboard = $router->db->getCardboard($_SESSION["user"]["id"]);
-        $examinations = $router->db->getExaminations($cardboard["id"]);
+        $examinations = $router->db->getExaminations($cardboard !== '' ? $cardboard["id"] : 0);
         $examinations2 = [];
         foreach ($examinations as $examination) {
             $doctor = $router->db->getDoctor($examination["doctor_id"]);

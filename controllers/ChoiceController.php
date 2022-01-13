@@ -27,7 +27,12 @@ class ChoiceController
     {
         if($_SERVER["REQUEST_METHOD"] === "POST"){
             $doctor_id = $_POST["doctor_id"];
-            $router->db->assignDoctor($doctor_id);
+            $type = $_POST["type"];
+            if($type === "select"){
+                $router->db->assignDoctor($doctor_id);
+            }else{
+                $router->db->requestChange($doctor_id);
+            }
             $router->renderView('home',[]);
         }
     }
