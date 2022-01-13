@@ -7,7 +7,7 @@
             <input class="login_input" placeholder="Password" name="password"/>
             <button type="submit" class="login_sign">SIGN IN</button>
             <div class="login_container3">
-                <a href="/" class="login_signup">- Or Sign Up -</a>
+                <a href="/signup" class="login_signup">- Or Sign Up -</a>
                 <a href="/" class="login_forgot">Forgot Password</a>
             </div>
         </form>

@@ -9,7 +9,7 @@ use app\models\Message;
 class ChatController{
 
     public function get(Router $router){  //fuction for getting all patients to which doctor had already sent a message
-        $patients = [];
+        $patients = $router->db->getPatients();
         $doctor = '';
         $id = 0;
         if($_SESSION["user"]["type"] === "patient"){
@@ -21,12 +21,6 @@ class ChatController{
         }
         $patient = $router->db->getPatient($id);
         $_SESSION["currentPatient"] = $patient;
-        foreach ($messages as $message) {
-            if(in_array($router->db->getPatient($message["patient_id"]),$patients) !== true) //doctor can send multiple messages to same user
-            {
-                array_push($patients,$router->db->getPatient($message["patient_id"]));
-            }
-        }
         $router->renderView('chat',[
             "patients" => $patients,
             "messages" => count($messages) === 0 ? '' : $messages,

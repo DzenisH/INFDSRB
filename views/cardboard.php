@@ -12,15 +12,15 @@
             </div>
             <div class="cardboard_container5">
                 <p class="cardboard_name">Last Name</p>
-                <input value="<?php echo $patient["last name"] ?>" class="cardboard_input">
+                <input value="<?php echo $patient["last_name"] ?>" class="cardboard_input">
             </div>
             <div class="cardboard_container5">
                 <p class="cardboard_name">Date of birth</p>
-                <input value="<?php echo $patient["date of birth"] ?>" class="cardboard_input">
+                <input value="<?php echo $patient["date_of_birth"] ?>" class="cardboard_input">
             </div>
             <div class="cardboard_container5">
                 <p class="cardboard_name">Country of birth</p>
-                <input value="<?php echo $patient["country of birth"] ?>" class="cardboard_input">
+                <input value="<?php echo $patient["country_of_birth"] ?>" class="cardboard_input">
             </div>
             <div class="cardboard_container5">
                 <p class="cardboard_name">JMBG</p>
@@ -45,7 +45,7 @@
             <?php foreach ($examinations as $key => $examination): ?>
                 <tr>
                     <th style="border-right: 1px solid black;border-top:1px solid black;"><?php echo $key+1 ?></th>
-                    <th style="border-right: 1px solid black;border-top:1px solid black;"><?php echo $examination["name"] ?> <?php echo $examination["last name"] ?></th>
+                    <th style="border-right: 1px solid black;border-top:1px solid black;"><?php echo $examination["name"] ?> <?php echo $examination["last_name"] ?></th>
                     <th style="border-right: 1px solid black;border-top:1px solid black;"><?php echo $examination["date"] ?></th>
                     <th style="border-right: 1px solid black;border-top:1px solid black;"><?php echo $examination["diagnosis"] ?></th>
                     <th style="border-top:1px solid black;"><?php echo $examination["therapy"] ?></th>

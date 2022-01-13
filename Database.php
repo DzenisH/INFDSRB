@@ -2,7 +2,9 @@
 
 namespace app;
 
+use app\models\Doctor;
 use app\models\Message;
+use app\models\Patient;
 use PDO;
 
 session_start();
@@ -20,14 +22,14 @@ class Database
         self::$db = $this;
     }
 
-    public function getPatients()
+    public function getPatients() //get patients for current loged doctor
     {
         $statement = $this->pdo->prepare('SELECT * FROM patient WHERE doctor_id=:id');
         $statement->bindValue(":id",($_SESSION["user"])["id"]);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function checkLogin($login)  //return user or array with lengt of 0 if there are not user
+    public function checkLogin($login)  //return user or array with length of 0 if there are not user
     {
         $statement = $this->pdo->prepare('SELECT * FROM patient WHERE email = :email AND password = :password');
         $statement->bindValue(':email',$login['email']);
@@ -36,6 +38,14 @@ class Database
         $patient =  $statement->fetchAll(PDO::FETCH_ASSOC);
         if(count($patient) === 0){
             $statement2 = $this->pdo->prepare('SELECT * FROM doctor WHERE email = :email AND password = :password');
+            $statement2->bindValue(':email',$login['email']);
+            $statement2->bindValue(':password',$login['password']);
+            $statement2->execute();
+            $patient =  $statement2->fetchAll(PDO::FETCH_ASSOC);
+        }
+        if(count($patient) === 0)
+        {
+            $statement2 = $this->pdo->prepare('SELECT * FROM admin WHERE email = :email AND password = :password');
             $statement2->bindValue(':email',$login['email']);
             $statement2->bindValue(':password',$login['password']);
             $statement2->execute();
@@ -140,5 +150,48 @@ class Database
         $statement->bindValue(":id",$id);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function createPatient(Patient $patient)
+    {
+        $statement = $this->pdo->prepare("INSERT INTO patient (name,last_name,gender,
+        place_of_birth,country_of_birth,date_of_birth,JMBG,phone_number,email,password,type,image,accepted)
+        VALUES (:name,:last_name,:gender,:place_of_birth,:country_of_birth,:date_of_birth,
+        :JMBG,:phone_number,:email,:password,:type,:image,:accepted)");
+        $statement->bindValue(":name",$patient->name);
+        $statement->bindValue(":last_name",$patient->last_name);
+        $statement->bindValue(":gender",$patient->gender);
+        $statement->bindValue(":place_of_birth",$patient->place_of_birth);
+        $statement->bindValue(":country_of_birth",$patient->country_of_birth);
+        $statement->bindValue(":date_of_birth",$patient->date_of_birth->format('Y-m-d'));
+        $statement->bindValue(":JMBG",$patient->jmbg);
+        $statement->bindValue(":phone_number",$patient->phone_number);
+        $statement->bindValue(":email",$patient->email);
+        $statement->bindValue(":password",$patient->password);
+        $statement->bindValue(":type",$patient->type);
+        $statement->bindValue(":image",$patient->image);
+        $statement->bindValue(":accepted",$patient->accepted);
+        $statement->execute();
+    }
+    public function createDoctor(Doctor $doctor)
+    {
+        $statement = $this->pdo->prepare("INSERT INTO doctor (name,last_name,gender,
+        place_of_birth,country_of_birth,date_of_birth,JMBG,phone_number,email,password,type,image,accepted)
+        VALUES (:name,:last_name,:gender,:place_of_birth,:country_of_birth,:date_of_birth,
+        :JMBG,:phone_number,:email,:password,:type,:image,:accepted)");
+        $statement->bindValue(":name",$doctor->name);
+        $statement->bindValue(":last_name",$doctor->last_name);
+        $statement->bindValue(":gender",$doctor->gender);
+        $statement->bindValue(":place_of_birth",$doctor->place_of_birth);
+        $statement->bindValue(":country_of_birth",$doctor->country_of_birth);
+        $statement->bindValue(":date_of_birth",$doctor->date_of_birth->format('Y-m-d'));
+        $statement->bindValue(":JMBG",$doctor->jmbg);
+        $statement->bindValue(":phone_number",$doctor->phone_number);
+        $statement->bindValue(":email",$doctor->email);
+        $statement->bindValue(":password",$doctor->password);
+        $statement->bindValue(":type",$doctor->type);
+        $statement->bindValue(":image",$doctor->image);
+        $statement->bindValue(":accepted",$doctor->accepted);
+        $statement->execute();
     }
 }

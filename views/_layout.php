@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="/css/chat.css"/>
     <link rel="stylesheet" href="/css/choice.css"/>
     <link rel="stylesheet" href="/css/cardboard.css"/>
+    <link rel="stylesheet" href="/css/signup.css"/>
     <!--JS-->
     <script src="/js/_layout.js" defer></script>
     <script src="/js/chat.js" defer></script>
@@ -58,12 +59,15 @@
           </ul>
         </li>
         <li><a href="/">Education</a></li>
+        <?php if(isset($_SESSION["user"]) && ($_SESSION["user"])["type"] === "admin") :?>
+        <li><a href="/requests">Requests</a></li>
+        <?php endif; ?>
         <?php if(isset($_SESSION["user"]) && ($_SESSION["user"])["type"] === "patient") :?>
         <li><a href="/choice">Doctors</a></li>
         <li><a href="/cardboard">Medical record</a></li>
         <?php endif; ?>
         <?php if(isset($_SESSION["user"]) && ($_SESSION["user"])["type"] === "doctor") :?>
-        <li><a href="patients">Patients</a></li>
+        <li><a href="/patients">Patients</a></li>
         <?php endif; ?>
         <li><a href="/">Contact Us</a></li>
       </ul>

@@ -21,10 +21,10 @@
                 <tr class="patient_table_body">
                     <td><?php echo $index+1 ?></td>
                     <td><?php echo $doctor['name'] ?></td>
-                    <td><?php echo $doctor['last name'] ?></td>
+                    <td><?php echo $doctor['last_name'] ?></td>
                     <td><?php echo $doctor['gender'] ?></td>
-                    <td><?php echo $doctor['country of birth'] ?></td>
-                    <td><?php echo $doctor['phone number'] ?></td>
+                    <td><?php echo $doctor['country_of_birth'] ?></td>
+                    <td><?php echo $doctor['phone_number'] ?></td>
                     <td><?php echo $doctor['email'] ?></td>
                     <td><?php echo $doctor['number'] ?></td>
                         <td>

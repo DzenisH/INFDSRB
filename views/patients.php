@@ -20,13 +20,13 @@
                 <tr class="patient_table_body">
                     <td><?php echo $index+1 ?></td>
                     <td><?php echo $patient['name'] ?></td>
-                    <td><?php echo $patient['last name'] ?></td>
+                    <td><?php echo $patient['last_name'] ?></td>
                     <td><?php echo $patient['gender'] ?></td>
-                    <td><?php echo $patient['place of birth'] ?></td>
-                    <td><?php echo $patient['country of birth'] ?></td>
-                    <td><?php echo $patient['date of birth'] ?></td>
+                    <td><?php echo $patient['place_of_birth'] ?></td>
+                    <td><?php echo $patient['country_of_birth'] ?></td>
+                    <td><?php echo $patient['date_of_birth'] ?></td>
                     <td><?php echo $patient['JMBG'] ?></td>
-                    <td><?php echo $patient['phone number'] ?></td>
+                    <td><?php echo $patient['phone_number'] ?></td>
                     <td><?php echo $patient['email'] ?></td>
                 </tr>
             <?php endforeach; ?>

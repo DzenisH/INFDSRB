@@ -1,0 +1,118 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700);
+
+.signup_container{
+    display: flex;
+    justify-content: center;
+    height: 800px;
+}
+
+.signup_container1{
+    width: 1040px;
+    height: 600px;
+    margin-top: 50px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 20px;
+    display: flex;
+}
+
+.signup_container2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 50%;
+    height: 100%;
+    border-radius: 20px 0px 0px 20px;
+    background: #0089D9;
+    background: -webkit-radial-gradient(bottom right, #0089D9, #3F4047);
+    background: -moz-radial-gradient(bottom right, #0089D9, #3F4047);
+    background: radial-gradient(to top left, #0089D9, #3F4047);
+}
+
+.signup_welcome{
+    font-size: 40px;
+    color: #fff;
+    font-weight: bolder;    
+    font-family: "Lato",Arial, Helvetica, sans-serif;
+}
+
+.sigunp_login_text{
+    color: #fff;
+    font-family: "Lato",Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    margin-top: 20px;
+}
+
+.signup_login_btn{
+    padding: 20px;
+    background-color: transparent;
+    border:1px solid #fff;
+    border-radius: 30px;
+    width: 200px;
+    color: #fff;
+    font-weight: bold;
+    font-family: "Lato",Arial, Helvetica, sans-serif;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.signup_login_btn:hover{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
+}
+
+.signup_container3{
+    width: 50%;
+}
+
+.signup_create{
+    font-size: 30px;
+    font-family: "Lato",Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.signup_container5{
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.signup_container6{
+    margin-left: 20px;
+}
+
+
+.signup_input{
+    height: 40px;
+    width: 230px;
+    background-color:#D8D8D8;
+    border:none;
+    padding-left: 20px;
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.signup_container8{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.signup_buttons{
+    margin-top: 10px;
+}
+
+.signup_button{
+    margin-left: 30px;
+    background: #0089D9;
+    background: -webkit-radial-gradient(bottom right, #0089D9, #3F4047);
+    background: -moz-radial-gradient(bottom right, #0089D9, #3F4047);
+    background: radial-gradient(to top left, #0089D9, #3F4047);
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 20px;
+    padding:15px;
+    cursor: pointer;
+}

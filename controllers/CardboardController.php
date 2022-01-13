@@ -14,7 +14,7 @@ class CardboardController
         foreach ($examinations as $examination) {
             $doctor = $router->db->getDoctor($examination["doctor_id"]);
             $examination["name"] = $doctor["name"];
-            $examination["last name"] = $doctor["last name"];
+            $examination["last_name"] = $doctor["last_name"];
             array_push($examinations2,$examination);
         }
         $router->renderView('cardboard',[

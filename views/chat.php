@@ -35,12 +35,12 @@
                         <li style="margin-top:20px;border-bottom:1px solid #fff">
                             <div class="chat_list_content">
                                 <div class="chat_image_container">
-                                    <img class="chat_image" src="/images/chat/patient.jpg" alt="patient"/>
+                                    <img class="chat_image" src="<?php echo $patient["image"] ?>" alt="patient"/>
                                 </div>
                                 <div class="chat_container3">
                                     <button class="submitBtn" onclick="show(<?php echo $patient['id'] ?>)"
                                     style="background-color: transparent;border:none">
-                                        <p class="chat_name"><?php echo $patient["name"]?> <?php echo $patient["last name"] ?></p>
+                                        <p class="chat_name"><?php echo $patient["name"]?> <?php echo $patient["last_name"] ?></p>
                                     </button>
                                     <p class="chat_email"><?php echo $patient["email"]?></p>
                                 </div> 
@@ -57,7 +57,7 @@
                             <div class="chat_container3">
                                 <button class="submitBtn" onclick="show(<?php echo $doctor['id'] ?>)"
                                 style="background-color: transparent;border:none">
-                                    <p class="chat_name"><?php echo $doctor["name"]?> <?php echo $doctor["last name"] ?></p>
+                                    <p class="chat_name"><?php echo $doctor["name"]?> <?php echo $doctor["last_name"] ?></p>
                                 </button>
                                 <p class="chat_email"><?php echo $doctor["email"]?></p>
                             </div> 
@@ -71,7 +71,8 @@
     <div class="chat_container4">
         <div class="chat_container5">
             <div class="chat_image_container2">
-                <img class="chat_image" src="/images/chat/patient.jpg" alt="patient"/>
+                <!-- <img class="chat_image" src="/images/chat/patient.jpg" alt="patient"/> -->
+                <img class="chat_image" src="<?php echo $CurrentPatient["image"]?>" alt="patient"/>
             </div>
             <div class="chat_container6">
                 <p class="chat_chat_with"> <?php echo $CurrentPatient === '' ? ''  : "Chat with" ?> <?php echo $_SESSION["user"]["type"] === "doctor" ?  ($CurrentPatient === '' ? "There are no patients"  : $CurrentPatient["name"]) : $doctor["name"] ?></p>
