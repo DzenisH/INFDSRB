@@ -7,6 +7,7 @@ use app\Database;
 
 class Patient
 {
+    public ?string $username = null;
     public ?string $name = null;
     public ?string $last_name = null;
     public ?string $gender = null;
@@ -20,9 +21,12 @@ class Patient
     public ?string $type = null;
     public ?string $image = null;
     public ?string $accepted = null;
+    public ?int $request_change = null;
+    public ?int $change_doctor_id = null;
 
     public function load($data)
     {
+        $this->username = $data["username"];
         $this->name = $data["name"];
         $this->last_name = $data["last_name"];
         $this->gender = $data["gender"];
@@ -36,6 +40,8 @@ class Patient
         $this->type = $data["type"];
         $this->accepted = $data["accepted"];
         $this->image = $data["image"];
+        $this->request_change = $data["request_change"];
+        $this->change_doctor_id = $data["change_doctor_id"];
     }
 
     public function savePatient()

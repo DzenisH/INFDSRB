@@ -74,15 +74,24 @@ class AccountController
                 "password" => $_POST["password"],
                 "type" => $_POST["type"],
                 "image" => $fileDestination,
-                "accepted" => 0  //admin must accept user as patient or doctor
+                "accepted" => 0,  //admin must accept user as patient or doctor
+                "request_change" => 0, //if this is 1 that means that patient send request for changing doctor
+                "change_doctor_id" => 0,
             ];
+            $username = $_POST["name"].rand(1,200);
+            while($router->db->Check($username)){
+                $username = $_POST["name"].rand(1,200);
+            }
             if($_POST["type"] === "patient"){
+                //generate unique username for user(doctor or patient)
+                $data["username"] = $username;
                 $patient = new Patient();
                 $patient->load($data);
                 $patient->savePatient();
                 header('Location:/');
             }else if($_POST["type"] === "doctor"){
                 $doctor = new Doctor();
+                $data["username"] = $username;
                 $doctor->load($data);
                 $doctor->saveDoctor();
                 header('Location:/');

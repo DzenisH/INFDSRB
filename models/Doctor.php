@@ -5,6 +5,7 @@ use DateTime;
 use app\Database;
 
 class Doctor{
+    public ?string $username = null;
     public ?string $name = null;
     public ?string $last_name = null;
     public ?string $gender = null;
@@ -21,6 +22,7 @@ class Doctor{
 
     public function load($data)
     {
+        $this->username = $data["username"];
         $this->name = $data["name"];
         $this->last_name = $data["last_name"];
         $this->gender = $data["gender"];

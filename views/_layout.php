@@ -78,9 +78,10 @@
         <?php endif; ?>
         <li><a href="/">Contact Us</a></li>
       </ul>
-      <label for="check" class="checkbtn">
+      <!-- <label for="check" class="checkbtn">
         <img src="/images/bar.png" alt="bar" class="bar"/>
-      </label>
+      </label> -->
+      <p style="align-self:center"><?php echo isset($_SESSION['user']) ?  $_SESSION['user']['username'] : '' ?></p>
     </div>
   </div>
 </header>

@@ -156,10 +156,11 @@ class Database
 
     public function createPatient(Patient $patient)
     {
-        $statement = $this->pdo->prepare("INSERT INTO patient (name,last_name,gender,
+        $statement = $this->pdo->prepare("INSERT INTO patient (username,name,last_name,gender,
         place_of_birth,country_of_birth,date_of_birth,JMBG,phone_number,email,password,type,image,accepted)
-        VALUES (:name,:last_name,:gender,:place_of_birth,:country_of_birth,:date_of_birth,
+        VALUES (:username,:name,:last_name,:gender,:place_of_birth,:country_of_birth,:date_of_birth,
         :JMBG,:phone_number,:email,:password,:type,:image,:accepted)");
+        $statement->bindValue(":username",$patient->username);
         $statement->bindValue(":name",$patient->name);
         $statement->bindValue(":last_name",$patient->last_name);
         $statement->bindValue(":gender",$patient->gender);
@@ -177,10 +178,11 @@ class Database
     }
     public function createDoctor(Doctor $doctor)
     {
-        $statement = $this->pdo->prepare("INSERT INTO doctor (name,last_name,gender,
+        $statement = $this->pdo->prepare("INSERT INTO doctor (username,name,last_name,gender,
         place_of_birth,country_of_birth,date_of_birth,JMBG,phone_number,email,password,type,image,accepted)
-        VALUES (:name,:last_name,:gender,:place_of_birth,:country_of_birth,:date_of_birth,
+        VALUES (:username,:name,:last_name,:gender,:place_of_birth,:country_of_birth,:date_of_birth,
         :JMBG,:phone_number,:email,:password,:type,:image,:accepted)");
+        $statement->bindValue(":username",$doctor->username);
         $statement->bindValue(":name",$doctor->name);
         $statement->bindValue(":last_name",$doctor->last_name);
         $statement->bindValue(":gender",$doctor->gender);
@@ -276,6 +278,27 @@ class Database
             $statement = $this->pdo->prepare('UPDATE patient SET request_change=0,change_doctor_id=0 WHERE id=:id');
             $statement->bindValue(':id',$id);
             $statement->execute();
+        }
+    }
+
+    public function Check($username)  //function for checking if there is user(patient or doctor) with corresponding username
+    {
+        $statement = $this->pdo->prepare('SELECT * FROM patient WHERE username=:username');
+        $statement->bindValue(':username',$username);
+        $statement->execute();
+        $patients = $statement->fetchAll(PDO::FETCH_ASSOC);
+        if(count($patients) > 0){
+            return true;
+        }else{
+            $statement2 = $this->pdo->prepare('SELECT * FROM doctor WHERE username=:username');
+            $statement2->bindValue(':username',$username);
+            $statement2->execute();
+            $doctors = $statement->fetchAll(PDO::FETCH_ASSOC);
+            if(count($doctors)>0){
+                return true;
+            }else{
+                return false;
+            }
         }
     }
 

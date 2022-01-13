@@ -1,4 +1,5 @@
 <script>
+
     function signupPatient(){
         const type = document.getElementById("type");
         const form = document.getElementById("signup_form");
@@ -6,11 +7,12 @@
         form.submit();
     }
 
-    function signupDoctor(){
+    function signupDoctor(username){
         const type = document.getElementById("type");
         const form = document.getElementById("signup_form");
         type.value = "doctor";
         form.submit();
+        console.log(username);
     }
 </script>
 
@@ -59,7 +61,7 @@
                         <button class="signup_button" style="margin-left: 0px;"
                         onclick="signupPatient()">SIGNUP AS PATIENT</button>
                         <button class="signup_button"
-                        onclick="signupDoctor()">SINGUP AS DOCTOR</button>
+                        onclick="signupDoctor('<?php echo  isset($username) ? $username : '' ?>')">SINGUP AS DOCTOR</button>
                     </div>
                 </div>
             </form>
