@@ -1,0 +1,49 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700);
+
+.detailArticle_container1{
+    display: flex;
+    justify-content: center;
+}
+
+.detailArticle_container2{
+    width: 800px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.detailArticle_title{
+    font-weight: bold;
+    font-size: 40px;
+    margin-bottom: 5px;
+    font-size: 'Lato',Arial, sans-serif;
+}
+
+.detailArticle_image{
+    width: 100%;
+    height: 400px;
+    margin-top: 20px;
+}
+
+.detailArticle_container3{
+    display: flex;
+    align-items: center;
+}
+
+.detailArticle_author_image{
+    width: 80px;
+    height: 80px;
+}
+
+.detailArticle_author_name{
+    margin-left: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+.detailArticle_container4{
+    margin-top: 50px;
+}
+
+.detailArticle_container4 img{
+    width: 300px;
+    height: 200px;
+}

@@ -41,7 +41,6 @@ class AccountController
         if($_SERVER["REQUEST_METHOD"]==="POST"){
             $image = $_FILES['image'];
             $fileName = $_FILES['image']['name'];
-            $fileSize = $_FILES['image']['size'];
             $fileTmpName = $_FILES['image']['tmp_name']; //before uploading file is in some temporary directory
             $fileError = $_FILES['image']['error'];  
 

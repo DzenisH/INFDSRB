@@ -1,0 +1,29 @@
+.articles_container1{
+    display: flex;
+    justify-content: center;
+}
+
+.articles_container2{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.articles_container3{
+    display: flex;
+    width: 400px;
+    height: 120px;
+    margin-top: 40px;
+}
+
+.articles_image{
+    width: 140px;
+    cursor: pointer;
+}
+
+.articles_container4{
+    margin-left: 20px;
+}
+
+.articles_title{
+    cursor: pointer;
+}

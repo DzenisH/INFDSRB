@@ -1,7 +1,7 @@
 <?php
 
 use app\controllers\AccountController;
-use app\controllers\Cardboard;
+use app\controllers\ArticleController;
 use app\controllers\CardboardController;
 use app\controllers\ChatController;
 use app\controllers\ChoiceController;
@@ -33,5 +33,8 @@ $router->get('/delete',[DeleteController::class,'get']);
 $router->post('/delete',[DeleteController::class,'delete']);
 $router->get('/request-change',[RequestChangeController::class,'get']);
 $router->post('/request-change',[RequestChangeController::class,'request']);
-
+$router->get('/addArticle',[ArticleController::class,'addArticle']);
+$router->post('/addArticle',[ArticleController::class,'addArticle']);
+$router->get('/articles',[ArticleController::class,'get']);
+$router->get('/detailArticle',[ArticleController::class,'get2']);
 $router->resolve();

@@ -6,7 +6,9 @@
             "email": "dzenishadzifejzovic@tpssjenica.com"
         }
     ],
-    "require": {},
+    "require": {
+        "erusev/parsedown": "^1.7"
+    },
     "autoload":{
         "psr-4":{
             "app\\":"./" 

@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="/css/signup.css"/>
     <link rel="stylesheet" href="/css/requests.css"/>
     <link rel="stylesheet" href="/css/requestChange.css"/>
+    <link rel="stylesheet" href="/css/addArticle.css"/>
+    <link rel="stylesheet" href="/css/articles.css"/>
+    <link rel="stylesheet" href="/css/detailArticle.css"/>
     <!--JS-->
     <script src="/js/_layout.js" defer></script>
     <!--GOOGLE FONTS-->
@@ -33,7 +36,7 @@
 <body>
 <div class="loginContainer">
   <div class="loginContainer2">
-    <?php if(isset($_SESSION["user"])) :?>
+    <?php if(isset($_SESSION["user"]) && $_SESSION["user"]["type"] !== "admin" ) :?>
     <a href="/chat">
       <i class="fas fa-comments message_icon"></i>
     </a>
@@ -59,29 +62,41 @@
             <li><a>Home treatment</a></li>
           </ul>
         </li>
-        <li><a href="/">Education</a></li>
-        <?php if(isset($_SESSION["user"]) && ($_SESSION["user"])["type"] === "admin") :?>
-        <li><a href="/requests">Requests</a></li>
+        <li><a href="/articles">Education</a></li>
+
+        <?php if(isset($_SESSION["user"]) && (($_SESSION["user"]["type"] === "admin")|| ($_SESSION["user"]["type"] === "doctor")) ):?>
+          <li><a href="/addArticle">Add Article</a></li>
         <?php endif; ?>
+
         <?php if(isset($_SESSION["user"]) && ($_SESSION["user"])["type"] === "admin") :?>
-        <li><a href="/delete">Delete user</a></li>
+          <li><a href="/requests">Requests</a></li>
         <?php endif; ?>
+
         <?php if(isset($_SESSION["user"]) && ($_SESSION["user"])["type"] === "admin") :?>
-        <li><a href="/request-change">Requests for changing doctor</a></li>
+          <li><a href="/delete">Delete user</a></li>
         <?php endif; ?>
+
+        <?php if(isset($_SESSION["user"]) && ($_SESSION["user"])["type"] === "admin") :?>
+          <li><a href="/request-change">Requests for changing doctor</a></li>
+        <?php endif; ?>
+
         <?php if(isset($_SESSION["user"]) && ($_SESSION["user"])["type"] === "patient") :?>
-        <li><a href="/choice">Doctors</a></li>
-        <li><a href="/cardboard">Medical record</a></li>
+          <li><a href="/choice">Doctors</a></li>
+          <li><a href="/cardboard">Medical record</a></li>
         <?php endif; ?>
+
         <?php if(isset($_SESSION["user"]) && ($_SESSION["user"])["type"] === "doctor") :?>
-        <li><a href="/patients">Patients</a></li>
+          <li><a href="/patients">Patients</a></li>
         <?php endif; ?>
-        <li><a href="/">Contact Us</a></li>
+
+        <?php if(isset($_SESSION["user"]) && $_SESSION["user"]["type"] !== "admin") :?>
+          <li><a href="/">Contact Us</a></li>
+        <?php endif; ?>
       </ul>
       <!-- <label for="check" class="checkbtn">
         <img src="/images/bar.png" alt="bar" class="bar"/>
       </label> -->
-      <p style="align-self:center"><?php echo isset($_SESSION['user']) ?  $_SESSION['user']['username'] : '' ?></p>
+      <p style="align-self:center"><?php echo isset($_SESSION['user']) && $_SESSION["user"]["type"] !== "admin"  ?  $_SESSION['user']['username'] : '' ?></p>
     </div>
   </div>
 </header>

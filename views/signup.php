@@ -130,7 +130,7 @@
                         <p id="passwordConfirm-error" class="signup_error">Please enter correct password</p>
                         <div style="margin-top: 14px;">
                             <p style="margin-bottom: 5px;">Image</p>
-                            <input  placeholder="Image" name="image" type="file"/>
+                            <input name="image" type="file"/>
                         </div>
                         <input class="signup_input" style="display: none;" id="type" name="type"/>
                     </div>

@@ -2,6 +2,7 @@
 
 namespace app;
 
+use app\models\Article;
 use app\models\Doctor;
 use app\models\Message;
 use app\models\Patient;
@@ -300,6 +301,56 @@ class Database
                 return false;
             }
         }
+    }
+
+    public function AddArticle(Article $article)
+    {
+        $statement = $this->pdo->prepare('INSERT INTO article (title,content,user_id,type_of_user,
+        image,description) 
+        VALUES (:title,:content,:user_id,:type_of_user,:image,:description)');
+        $statement->bindValue(':title',$article->title);
+        $statement->bindValue(':description',$article->description);
+        $statement->bindValue(':content',$article->content);
+        $statement->bindValue(':image',$article->image);
+        $statement->bindValue(':user_id',$article->user_id);
+        $statement->bindValue(':type_of_user',$article->type_of_user);
+        $statement->execute();
+    }
+
+    public function getArticles()
+    {
+        $statement = $this->pdo->prepare('SELECT * FROM article');
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getArticle($id)
+    {
+        $statement = $this->pdo->prepare('SELECT * FROM article WHERE id=:id');
+        $statement->bindValue(':id',$id);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC)[0];
+    }
+
+    public function getArticleAuthor($id)  //based on id of article find author of that article
+    {
+        $statement = $this->pdo->prepare('SELECT * FROM article WHERE id=:id');
+        $statement->bindValue(':id',$id);
+        $statement->execute();
+        $article = $statement->fetchAll(PDO::FETCH_ASSOC)[0];
+        if($article['type_of_user'] === "doctor"){
+            $statement2 = $this->pdo->prepare('SELECT * FROM doctor WHERE id=:id');
+            $statement2->bindValue(':id',$article['user_id']);
+            $statement2->execute();
+            $user = $statement2->fetchAll(PDO::FETCH_ASSOC);
+        }else if($article['type_of_user'] === "admin"){
+            $statement2 = $this->pdo->prepare('SELECT * FROM admin WHERE id=:id');
+            $statement2->bindValue(':id',$article['user_id']);
+            $statement2->execute();
+            $user = $statement2->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        return $user[0];
     }
 
 }

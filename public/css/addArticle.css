@@ -1,0 +1,58 @@
+.addArticle_container1{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 100px;
+}
+
+.addArticle_container2{
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+.addArticle_container3{
+    display: flex;
+    margin-top: 20px;
+}
+
+.addArticle_title{
+    font-size: 25px;
+}
+
+.addArticle_title_input{
+    width: 500px;
+    height: 35px;
+    margin-left: 90px;
+    padding-left: 10px;
+    font-size: 20px;
+}
+
+.addArticle_textarea{
+    margin-left: 58px;
+    width: 500px;
+    height: 300px;
+    padding-top: 10px;
+    padding-left: 10px;
+    font-size: 20px;
+}
+
+.addArticle_btn{
+    background-color: green;
+    color: #fff;
+    border: none;
+    padding: 15px;
+    align-self: center;
+    width: 100px;
+    margin-top: 15px;
+    cursor: pointer;
+    margin-left: -80px;
+}
+
+.addArticle_information{
+    margin-left: 20px;
+}
+
+.addArticle_information p {
+    margin-top: 11px;
+}
