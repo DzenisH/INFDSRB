@@ -95,6 +95,7 @@ class AccountController
                 $doctor->saveDoctor();
                 header('Location:/');
             }
+
         }
         $router->renderView('signup',[]);
     }

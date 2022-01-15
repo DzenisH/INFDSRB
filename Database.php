@@ -5,6 +5,7 @@ namespace app;
 use app\models\Article;
 use app\models\Doctor;
 use app\models\Message;
+use app\models\PasswordHistory;
 use app\models\Patient;
 use PDO;
 
@@ -351,6 +352,87 @@ class Database
         }
 
         return $user[0];
+    }
+
+    public function addPasswordHistory(PasswordHistory $passwordHistory)
+    {
+        $statement = $this->pdo->prepare('INSERT INTO password_history (
+            password,type,user_id) VALUES (:password,:type,:user_id)');
+        $statement->bindValue(':password',$passwordHistory->password);
+        $statement->bindValue(':type',$passwordHistory->type);
+        $statement->bindValue(':user_id',$passwordHistory->user_id);
+        $statement->execute();
+    }
+
+    public function changePassword($user_id,$type)
+    {
+        if($type === "patient"){
+            $statement = $this->pdo->prepare('UPDATE patient SET password=:password WHERE id=:id');
+            $statement->bindValue(':id',$user_id);
+            $statement->bindValue(':password',$_POST['newPassword']);
+            $_SESSION['user']['password'] = $_POST['newPassword'];
+            $statement->execute();
+        }else if($type === "doctor"){
+            $statement = $this->pdo->prepare('UPDATE doctor SET password=:password WHERE id=:id');
+            $statement->bindValue(':id',$user_id);
+            $statement->bindValue(':password',$_POST['newPassword']);
+            $_SESSION['user']['password'] = $_POST['newPassword'];  
+            $statement->execute();
+        }else{
+            $statement = $this->pdo->prepare('UPDATE admin SET password=:password WHERE id=:id');
+            $statement->bindValue(':id',$user_id);
+            $statement->bindValue(':password',$_POST['newPassword']);
+            $_SESSION['user']['password'] = $_POST['newPassword'];
+            $statement->execute();
+        }
+
+    }
+
+    public function checkPasswords()  //number of old function for currently loged user
+    {
+        $statement = $this->pdo->prepare('SELECT * FROM password_history 
+        WHERE user_id=:id AND type=:type');
+        $statement->bindValue(':id',$_SESSION['user']['id']);
+        $statement->bindValue(':type',$_SESSION['user']['type']);
+        $statement->execute();
+        $passwords = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return count($passwords);
+    }
+
+    public function deletePasswords()  //delete all password from password_history table for current loged user
+    {
+        $statement = $this->pdo->prepare('DELETE FROM password_history 
+        WHERE user_id=:id AND type=:type');
+         $statement->bindValue(':id',$_SESSION['user']['id']);
+         $statement->bindValue(':type',$_SESSION['user']['type']);
+         $statement->execute();
+    }
+
+    public function checkOldPasswords($password)        
+    {
+        $statement = $this->pdo->prepare('SELECT * FROM password_history WHERE 
+        user_id=:id AND type=:type AND password=:password');
+        $statement->bindValue(':id',$_SESSION['user']['id']);
+        $statement->bindValue(':type',$_SESSION['user']['type']);
+        $statement->bindValue(':password',$password);
+        $statement->execute();
+        $array = $statement->fetchAll(PDO::FETCH_ASSOC);
+        if(count($array)>0){
+            return true;  //there is matching between new and some old password
+        }else{
+            return false;
+        }
+    }
+
+    public function getPasswordHistory()
+    {
+        $statement = $this->pdo->prepare('SELECT * FROM password_history
+        WHERE user_id=:id AND type=:type');
+        $statement->bindValue(':id',$_SESSION['user']['id']);
+        $statement->bindValue(':type',$_SESSION['user']['type']);
+        $statement->execute();
+        $passwords = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $passwords;
     }
 
 }

@@ -8,7 +8,9 @@
             <button type="submit" class="login_sign">SIGN IN</button>
             <div class="login_container3">
                 <a href="/signup" class="login_signup">- Or Sign Up -</a>
-                <a href="/" class="login_forgot">Forgot Password</a>
+                <?php if(isset($_SESSION['user'])) :?>
+                    <a href="/changePassword" class="login_forgot">Change Password</a>
+                <?php endif; ?>
             </div>
         </form>
     </div>

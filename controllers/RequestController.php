@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\PasswordHistory;
 use app\Router;
 
 class RequestController
@@ -21,6 +22,19 @@ class RequestController
         {
             $id = $_POST["id"];
             $type = $_POST["type"];
+            if($type === "doctor"){
+                $user = $router->db->getDoctor($id);
+            }else if($type === "patient"){
+                $user = $router->db->getPatient($id);
+            }
+            $data = [
+                "password" => $user['password'],
+                "type" => $user['type'],
+                "user_id" => $user['id']
+            ];
+            $passwordHistory = new PasswordHistory();
+            $passwordHistory->load($data);
+            $passwordHistory->save();
             $router->db->acceptUser($id,$type);
             header('Location:/requests');
         }

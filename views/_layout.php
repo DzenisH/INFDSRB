@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="/css/addArticle.css"/>
     <link rel="stylesheet" href="/css/articles.css"/>
     <link rel="stylesheet" href="/css/detailArticle.css"/>
+    <link rel="stylesheet" href="/css/changePassword.css"/>
     <!--JS-->
     <script src="/js/_layout.js" defer></script>
     <!--GOOGLE FONTS-->
