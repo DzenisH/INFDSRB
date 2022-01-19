@@ -1,6 +1,7 @@
 <?php
 
 use app\controllers\AccountController;
+use app\controllers\AppointmentController;
 use app\controllers\ArticleController;
 use app\controllers\CardboardController;
 use app\controllers\ChangePassword;
@@ -8,6 +9,7 @@ use app\controllers\ChatController;
 use app\controllers\ChoiceController;
 use app\controllers\DeleteController;
 use app\controllers\HomeController;
+use app\controllers\OverviewController;
 use app\controllers\PatientController;
 use app\controllers\RequestChangeController;
 use app\controllers\RequestController;
@@ -37,7 +39,11 @@ $router->post('/request-change',[RequestChangeController::class,'request']);
 $router->get('/addArticle',[ArticleController::class,'addArticle']);
 $router->post('/addArticle',[ArticleController::class,'addArticle']);
 $router->get('/articles',[ArticleController::class,'get']);
+$router->post('/articles',[ArticleController::class,'deleteArticle']);
 $router->get('/detailArticle',[ArticleController::class,'get2']);
 $router->get('/changePassword',[ChangePassword::class,'get']);
 $router->post('/changePassword',[ChangePassword::class,'post']);
+$router->get('/overview',[OverviewController::class,'get']);
+$router->get('/appointment',[AppointmentController::class,'get']);
+$router->post('/appointment',[AppointmentController::class,'addAppointment']);
 $router->resolve();

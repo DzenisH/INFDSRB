@@ -1,34 +1,40 @@
 <div class="cardboard_container">
     <div class="cardboard_container2">
         <div class="cardboard_container3">
-            <p>No of cardboard:1</p>
+            <p>No of cardboard:<?php echo $cardboard !== '' ? $cardboard["id"] : '' ?></p>
             <h2>MEDICAL RECORD</h2>
             <p>Date:<?php echo $cardboard !== '' ? $cardboard["date"] : '' ?></p>
         </div>
         <div class="cardboard_container4">
             <div class="cardboard_container5">
                 <p class="cardboard_name">Name</p>
-                <input value="<?php echo $patient["name"] ?>" class="cardboard_input">
+                <input value="<?php echo $patient["name"] ?>" class="cardboard_input"
+                readonly>
             </div>
             <div class="cardboard_container5">
                 <p class="cardboard_name">Last Name</p>
-                <input value="<?php echo $patient["last_name"] ?>" class="cardboard_input">
+                <input value="<?php echo $patient["last_name"] ?>" class="cardboard_input"
+                readonly>
             </div>
             <div class="cardboard_container5">
                 <p class="cardboard_name">Date of birth</p>
-                <input value="<?php echo $patient["date_of_birth"] ?>" class="cardboard_input">
+                <input value="<?php echo $patient["date_of_birth"] ?>" class="cardboard_input"
+                readonly>
             </div>
             <div class="cardboard_container5">
                 <p class="cardboard_name">Country of birth</p>
-                <input value="<?php echo $patient["country_of_birth"] ?>" class="cardboard_input">
+                <input value="<?php echo $patient["country_of_birth"] ?>" class="cardboard_input"
+                readonly>
             </div>
             <div class="cardboard_container5">
                 <p class="cardboard_name">JMBG</p>
-                <input value="<?php echo $patient["JMBG"] ?>" class="cardboard_input">
+                <input value="<?php echo $patient["JMBG"] ?>" class="cardboard_input"
+                readonly>
             </div>
             <div class="cardboard_container5">
                 <p class="cardboard_name">Gender</p>
-                <input value="<?php echo $patient["gender"] === "M" ? "Male" : "Female" ?>" class="cardboard_input">
+                <input value="<?php echo $patient["gender"] === "M" ? "Male" : "Female" ?>" class="cardboard_input"
+                readonly>
             </div>
         </div>
         <div style="display: flex;justify-content:center;margin-top:15px">

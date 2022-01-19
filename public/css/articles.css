@@ -10,7 +10,7 @@
 
 .articles_container3{
     display: flex;
-    width: 400px;
+    width: 600px;
     height: 120px;
     margin-top: 40px;
 }
@@ -22,8 +22,20 @@
 
 .articles_container4{
     margin-left: 20px;
+    width: 600px;
 }
 
 .articles_title{
     cursor: pointer;
+}
+
+.articles_deleteBtn{
+    width: 100px;
+    background-color: red;
+    border: none;
+    align-self: flex-end;
+    cursor: pointer;
+    color: #fff;
+    padding: 10px;
+    font-weight: bold;
 }

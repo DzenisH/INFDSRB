@@ -33,12 +33,22 @@ class Database
     }
     public function checkLogin($login)  //return user or array with length of 0 if there are not user
     {
-        $statement = $this->pdo->prepare('SELECT * FROM patient WHERE email = :email AND password = :password
-        AND accepted=1');
+        $statement = $this->pdo->prepare('SELECT * FROM patient WHERE email = :email AND password = :password');
         $statement->bindValue(':email',$login['email']);
         $statement->bindValue(':password',$login['password']);
         $statement->execute();
         $patient =  $statement->fetchAll(PDO::FETCH_ASSOC);
+        if(count($patient) !== 0){
+            $statement = $this->pdo->prepare('SELECT * FROM patient WHERE email = :email AND password = :password
+            AND accepted=1');
+            $statement->bindValue(':email',$login['email']);
+            $statement->bindValue(':password',$login['password']);
+            $statement->execute();
+            $patient =  $statement->fetchAll(PDO::FETCH_ASSOC);
+            if(count($patient) === 0){
+                return ''; //when we return this that means the user entered corect informtaion but it has not yet been accepted by the admin
+            }
+        }
         if(count($patient) === 0){
             $statement2 = $this->pdo->prepare('SELECT * FROM doctor WHERE email = :email AND password = :password
             AND accepted=1');
@@ -354,6 +364,13 @@ class Database
         return $user[0];
     }
 
+    public function deleteArticle($id)
+    {
+        $statement = $this->pdo->prepare('DELETE FROM article WHERE id=:id');
+        $statement->bindValue(':id',$id);
+        $statement->execute();
+    }
+
     public function addPasswordHistory(PasswordHistory $passwordHistory)
     {
         $statement = $this->pdo->prepare('INSERT INTO password_history (
@@ -433,6 +450,42 @@ class Database
         $statement->execute();
         $passwords = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $passwords;
+    }
+
+    public function addCardboard($patientId)
+    {
+        $date = date('Y-m-d');
+        $statement = $this->pdo->prepare('INSERT INTO cardboard (date,patient_id)
+        VALUES (:date,:patient_id)');
+        $statement->bindValue(':date',$date);
+        $statement->bindValue(':patient_id',$patientId);
+        $statement->execute();
+    }
+
+    public function getAppointments($date)  //get all appointments for specific date
+    {
+        // $date = date('Y-m-d');
+        // $datetime = date('Y-m-d H:i:s');
+        // $hours = date('H',strtotime($datetime));
+        // if($hours > 18){  // if current is more then 16 hours then patient could to schedule but tomorrow(in in each of the free terms for that day or days after)   
+        //     $date = date('Y-m-d',strtotime(date("Y-m-d", strtotime($date)) . "+1 day"));
+        // }
+        $statement = $this->pdo->prepare('SELECT * FROM appointment WHERE date_time LIKE :date AND 
+        done=0');
+        $statement->bindValue(':date',"%$date%");
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function addAppointment($datetime)
+    {
+        $statement = $this->pdo->prepare('INSERT INTO appointment (date_time,patient_id,
+        doctor_id,done) VALUES (:date_time,:patient_id,:doctor_id,:done)');
+        $statement->bindValue(':date_time',$datetime);
+        $statement->bindValue(':patient_id',$_SESSION['user']['id']);
+        $statement->bindValue(':doctor_id',$_SESSION['user']['doctor_id']);
+        $statement->bindValue(':done',0);
+        $statement->execute();
     }
 
 }

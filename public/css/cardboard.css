@@ -37,7 +37,10 @@
     border-bottom: 1px solid black;
     margin-left: 20px;
     font-size: 18px;
+}
 
+.cardboard_input:focus{
+    outline: none;
 }
 
 .cardboard_name{

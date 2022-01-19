@@ -1,0 +1,62 @@
+.appointment_container1{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+.appointment_container2{
+    display: flex;
+    align-items: center;
+}
+
+.appointment_date_text{
+    font-size: 20px;
+}
+
+.appointment_date{
+    width: 150px;
+    height: 30px;
+    margin-left: 10px;
+    padding-left: 5px;
+    font-size: 20px;
+}
+
+.appointment_confirm{
+    background-color: green;
+    border: none;
+    color: #fff;
+    padding: 8px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.appointment_container3{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.appointment_container4{
+    display: flex;
+    width: 200px;
+    background-color: #3f4047;
+    margin-top: 10px;
+    align-items: center;
+    display: flex;
+}
+.appointment_treatment{
+    font-size: 20px;
+    color: #fff;
+}
+
+.appointment_schedule_btn{
+    margin-left: 10px;
+    background-color: green;
+    border: none;
+    color:#fff;
+    cursor: pointer;
+    padding:10px;
+    margin-left: 80px;
+}

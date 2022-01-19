@@ -1,0 +1,90 @@
+.overview_container1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 100px;
+}
+
+
+.overview_container2{
+    display: flex;
+    flex-direction: column;
+    width: 1200px;
+}
+
+.overview_container3{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    width: 800px;
+    height: 200px;
+    align-self: flex-start;
+    display: flex;
+    margin-top: 50px;
+
+}
+.overview_container3 img{
+    width: 35%;
+}
+
+.overview_container4{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    width: 800px;
+    height: 200px;
+    align-self: flex-end;
+    margin-top: 50px;
+}
+
+.overview_container5{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 65%;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.overview_title{
+    font-size: 25px;
+    font-weight: bold;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.overview_text{
+    margin-top: 10px;
+    font-size: 20px;
+    text-align: left;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.overview_schedule_link{
+    height: 40px;
+    width: 100%;
+    margin-top: 32px;
+    border: none;
+    cursor: pointer;
+    background-color: #00D7D1;
+    font-weight: bold;
+    display: flex;
+    color:#fff;
+    font-size: 20px;
+    text-decoration: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.overview_schedule_btn:hover{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.overview_container4{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    width: 800px;
+    height: 200px;
+    align-self: flex-end;
+    display: flex;
+}
+
+.overview_container4 img{
+    width: 35%;
+}

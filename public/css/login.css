@@ -83,3 +83,14 @@
     color: #fff;
     font-weight: bold;
 }
+
+.login_accepted{
+    color: yellow;
+    font-size: 30px;
+    width: 300px;
+    margin-top: 5px;
+}
+
+#login_data{
+    display: none;
+}

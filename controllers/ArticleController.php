@@ -65,4 +65,15 @@ class ArticleController
             "author" => $author
         ]);
     }
+
+    public function deleteArticle(Router $router)
+    {
+        if($_SERVER['REQUEST_METHOD'] === "POST"){
+            $id = $_POST['id'];
+            $router->db->deleteArticle($id);   
+            header('Location:/articles');
+        }     
+
+        $router->renderView('articles',[]);
+    }
 }

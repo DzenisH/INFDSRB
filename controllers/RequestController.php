@@ -26,6 +26,7 @@ class RequestController
                 $user = $router->db->getDoctor($id);
             }else if($type === "patient"){
                 $user = $router->db->getPatient($id);
+                $router->db->addCardboard($user['id']);
             }
             $data = [
                 "password" => $user['password'],
