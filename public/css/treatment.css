@@ -1,0 +1,22 @@
+.treatment_choose{
+    display: flex;
+    margin-top: 20px;
+}
+
+.treatment_choose p{
+    font-size: 20px;
+}
+
+.treatment_diseases{
+    margin-left: 10px;
+}
+
+.treatment_disease{
+    display: flex;
+    align-items: center;
+    margin-left: 60px;
+}
+
+.treatment_disease p{
+    margin-left: 10px;
+}

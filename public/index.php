@@ -8,11 +8,15 @@ use app\controllers\ChangePassword;
 use app\controllers\ChatController;
 use app\controllers\ChoiceController;
 use app\controllers\DeleteController;
+use app\controllers\DoctorAppointmentsController;
+use app\controllers\DoctorTreatmentsController;
+use app\controllers\ExaminationController;
 use app\controllers\HomeController;
 use app\controllers\OverviewController;
 use app\controllers\PatientController;
 use app\controllers\RequestChangeController;
 use app\controllers\RequestController;
+use app\controllers\TreatmentController;
 use app\Router;
 
 require_once __DIR__.'/../vendor/autoload.php';
@@ -46,4 +50,11 @@ $router->post('/changePassword',[ChangePassword::class,'post']);
 $router->get('/overview',[OverviewController::class,'get']);
 $router->get('/appointment',[AppointmentController::class,'get']);
 $router->post('/appointment',[AppointmentController::class,'addAppointment']);
+$router->get('/doctor-appointments',[DoctorAppointmentsController::class,'get']);
+$router->get('/examination',[ExaminationController::class,'get']);
+$router->post('/examination',[ExaminationController::class,'addExamination']);
+$router->get('/treatment',[TreatmentController::class,'get']);
+$router->post('/treatment',[TreatmentController::class,'addTreatment']);
+$router->get('/doctor-treatments',[DoctorTreatmentsController::class,'get']);
+
 $router->resolve();

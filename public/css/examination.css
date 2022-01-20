@@ -1,0 +1,57 @@
+.examination_container1{
+    display: flex;
+    justify-content: center;
+}
+
+.examination_container2{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+}
+.examination_container3{
+    display: flex;
+}
+
+.examination_container3 p{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.examination_container3 textarea{
+    width: 500px;
+    height: 200px;
+    margin-left: 50px;
+    padding-top: 5px;
+    padding-left: 5px;
+    font-size: 20px;
+}
+
+.examination_container4{
+    display: flex;
+    margin-top: 50px;
+}
+
+.examination_container4 p{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.examination_container4 textarea{
+    width: 500px;
+    margin-left: 60px;
+    height: 200px;
+    padding-top: 5px;
+    padding-left: 5px;
+    font-size: 20px;
+}
+
+.examination_submit{
+    align-self: flex-end;
+    margin-top: 20px;
+    background-color: green;
+    border: none;
+    cursor: pointer;
+    padding: 12px;
+    color: #fff;
+}

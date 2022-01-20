@@ -1,0 +1,19 @@
+.doctorAppointments_container1{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.doctorAppointments_container3{
+    display: flex;
+}
+
+.doctorAppointments_perform_btn{
+    background-color: yellow;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 17px;
+    font-weight: bold;
+}

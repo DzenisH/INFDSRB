@@ -23,6 +23,9 @@
     <link rel="stylesheet" href="/css/changePassword.css"/>
     <link rel="stylesheet" href="/css/overview.css"/>
     <link rel="stylesheet" href="/css/appointment.css"/>
+    <link rel="stylesheet" href="/css/doctorAppointments.css"/>
+    <link rel="stylesheet" href="/css/examination.css"/>
+    <link rel="stylesheet" href="/css/treatment.css"/>
     <!--JS-->
     <script src="/js/_layout.js" defer></script>
     <!--GOOGLE FONTS-->
@@ -60,7 +63,21 @@
         <li id="relative">
           <a href="/">Services</a>
           <ul id="dropdown">
-            <li><a href="/overview">Overview</a></li>
+            <?php if(isset($_SESSION['user']) === false) :?> 
+              <li><a href="/overview">Overview</a></li>
+            <?php elseif($_SESSION['user']['type'] === "patient") :?>
+              <li><a href="/overview">Overview</a></li>
+            <?php endif; ?>
+            <?php if(isset($_SESSION['user'])) :?>
+              <?php if($_SESSION['user']['type'] === "doctor") :?>
+                <li><a href="/doctor-appointments">My Appointments</a></li>
+              <?php endif; ?>
+            <?php endif; ?>
+            <?php if(isset($_SESSION['user'])) :?>
+              <?php if($_SESSION['user']['type'] === "doctor") :?>
+                <li><a href="/doctor-treatments">My Treatments</a></li>
+              <?php endif; ?>
+            <?php endif; ?>
             <li><a>Hospital treatment</a></li>
             <li><a>Home treatment</a></li>
           </ul>

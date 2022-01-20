@@ -4,7 +4,7 @@
         <thead>
             <tr class="patient_table_header">
                 <th>No.</th>
-                <th>Name</th>
+                <th>First Name</th>
                 <th>Last Name</th>
                 <th>Gender</th>
                 <th>Place of Birth</th>

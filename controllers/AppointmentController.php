@@ -23,9 +23,8 @@ class AppointmentController
         if($_SERVER['REQUEST_METHOD'] === "POST"){
             $time = $_POST['time'];
             $date = $_POST['date2'];
-            // $realDate = new DateTime($date);
-            // $router->db->addAppointment(date('Y-m-d H:i:s',strtotime($date.$time."00:00")));
-            $router->db->addAppointment(date('Y-m-d H:i:s',strtotime($time)));
+            $realDate = new DateTime(strtotime($date));
+            $router->db->addAppointment($realDate->format('Y-m-d H:i:s'));
             header('Location:/');
         }
         $router->renderView('appointment',[]);

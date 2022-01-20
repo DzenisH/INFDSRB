@@ -38,7 +38,7 @@
                             <input value="<?php isset($appointment) ? date('Y-m-d',strtotime($appointments[0]['date_time'])) : '0000-00-00' ?>"
                             name="date2" form="appointment_form" style="display:none"/> 
                             <input type="button" class="appointment_schedule_btn" value="Schedule"
-                            onclick="submitAppointment('<?php  echo isset($appointment) ? date('Y-m-d H:i:s',strtotime($appointments[0]['date_time'].' '.$treatment)) : ' ' ?>')"/>
+                            onclick="submitAppointment(<?php  echo isset($appointment) ? date('Y-m-d',strtotime($appointments[0]['date_time'])) : ' ' ?>)"/>
                         </div>
                     <?php endif; ?>
                 <?php endif; ?>

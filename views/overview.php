@@ -5,9 +5,11 @@
             <div class="overview_container5">
                 <p class="overview_title">Make an appointment with an infectious disease specialist</p>
                 <p class="overview_text">Make an appointment with one of the best specialists in the field of infectology</p>
-                <a href="/appointment" class="overview_schedule_link">
-                    Schedule
-                </a>
+                <?php if(isset($_SESSION['user'])) :?>
+                    <a href="/appointment" class="overview_schedule_link">
+                        Schedule
+                    </a>
+                <?php endif; ?>
             </div>
         </div>
         <div class="overview_container4">
@@ -15,9 +17,11 @@
             <div class="overview_container5">
                 <p class="overview_title">Schedule treatment with us and see why we are the best</p>
                 <p class="overview_text">You are treated in the most modern conditions under the supervision of the best experts</p>
-                <a href="/appointment" class="overview_schedule_link">
-                    Schedule
-                </a>
+                <?php if(isset($_SESSION['user'])) :?>
+                    <a href="/treatment" class="overview_schedule_link">
+                        Schedule
+                    </a>
+                <?php endif; ?>
             </div>
         </div>
         <div class="overview_container3" style="height: 190px;">
@@ -25,9 +29,11 @@
             <div class="overview_container5">
                 <p class="overview_title">Schedule a lumbar puncture</p>
                 <p class="overview_text">The most modern devices are used when taking cerebrospinal fluid, so that the pain that is inevitable during this request is reduced to a minimum</p>
-                <a href="/appointment" class="overview_schedule_link">
-                    Schedule
-                </a>
+                <?php if(isset($_SESSION['user'])) :?>
+                    <a href="/appointment" class="overview_schedule_link">
+                        Schedule
+                    </a>
+                <?php endif; ?>
             </div>
         </div>
     </div>

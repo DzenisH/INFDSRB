@@ -4,9 +4,11 @@ namespace app;
 
 use app\models\Article;
 use app\models\Doctor;
+use app\models\Examination;
 use app\models\Message;
 use app\models\PasswordHistory;
 use app\models\Patient;
+use DateTime;
 use PDO;
 
 session_start();
@@ -164,6 +166,19 @@ class Database
         $statement->bindValue(":id",$id);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function addExamination(Examination $examination)
+    {
+        $statement = $this->pdo->prepare('INSERT INTO examination (date,
+        diagnosis,therapy,cardboard_id,doctor_id) VALUES (:date,:diagnosis,
+        :therapy,:cardboard_id,:doctor_id)');
+        $statement->bindValue(':date',$examination->date->format('Y-m-d'));
+        $statement->bindValue(':diagnosis',$examination->diagnosis);
+        $statement->bindValue(':therapy',$examination->therapy);
+        $statement->bindValue(':cardboard_id',$examination->cardboard_id);
+        $statement->bindValue(':doctor_id',$examination->doctor_id);
+        $statement->execute();
     }
 
     public function createPatient(Patient $patient)
@@ -464,12 +479,6 @@ class Database
 
     public function getAppointments($date)  //get all appointments for specific date
     {
-        // $date = date('Y-m-d');
-        // $datetime = date('Y-m-d H:i:s');
-        // $hours = date('H',strtotime($datetime));
-        // if($hours > 18){  // if current is more then 16 hours then patient could to schedule but tomorrow(in in each of the free terms for that day or days after)   
-        //     $date = date('Y-m-d',strtotime(date("Y-m-d", strtotime($date)) . "+1 day"));
-        // }
         $statement = $this->pdo->prepare('SELECT * FROM appointment WHERE date_time LIKE :date AND 
         done=0');
         $statement->bindValue(':date',"%$date%");
@@ -485,6 +494,63 @@ class Database
         $statement->bindValue(':patient_id',$_SESSION['user']['id']);
         $statement->bindValue(':doctor_id',$_SESSION['user']['doctor_id']);
         $statement->bindValue(':done',0);
+        $statement->execute();
+    }
+
+    public function getDoctorAppointments() //get appointments for current loged doctor
+    {
+        $statement = $this->pdo->prepare('SELECT * FROM appointment WHERE doctor_id=:id
+        AND done=0');
+        $statement->bindValue(':id',$_SESSION['user']['id']);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getTreatments($date)
+    {
+        $statement = $this->pdo->prepare('SELECT * FROM treatment WHERE date_time LIKE :date AND 
+        done=0');
+        $statement->bindValue(':date',"%$date%");
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function addTreatment($type_of_disease)
+    {
+        $date_time = new DateTime();
+        $statement = $this->pdo->prepare('INSERT INTO treatment (date_time,
+        type_of_disease,done,patient_id,doctor_id) VALUES (:date_time,
+        :type_of_disease,:done,:patient_id,:doctor_id)');
+        $statement->bindValue(':date_time',$date_time->format('Y-m-d H:m:s'));
+        $statement->bindValue(':type_of_disease',$type_of_disease);
+        $statement->bindValue(':done',0);
+        $statement->bindValue(':patient_id',$_SESSION['user']['id']);
+        $statement->bindValue(':doctor_id',$_SESSION['user']['doctor_id']);
+        $statement->execute();
+    }
+
+    public function getDoctorTreatments() //get treatments for doctor
+    {
+        $statement = $this->pdo->prepare('SELECT * FROM treatment WHERE doctor_id=:id
+        AND done=0');
+        $statement->bindValue(':id',$_SESSION['user']['id']);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function finishTreatment($id,$done)  //set done to 1 for treatment which id we send
+    {
+        $statement = $this->pdo->prepare('UPDATE treatment SET done=:done WHERE id=:id');
+        $statement->bindValue(':id',$id);
+        $statement->bindValue(':done',$done);
+        $statement->execute();
+    }
+
+    public function finishAppointment($id,$done)
+    {
+        $statement = $this->pdo->prepare('UPDATE appointment SET done=:done WHERE id=:id');
+        $statement->bindValue(':id',$id);
+        $statement->bindValue(':done',$done);
         $statement->execute();
     }
 
