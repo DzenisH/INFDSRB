@@ -12,6 +12,7 @@ use app\controllers\DoctorAppointmentsController;
 use app\controllers\DoctorTreatmentsController;
 use app\controllers\ExaminationController;
 use app\controllers\HomeController;
+use app\controllers\LogoutController;
 use app\controllers\OverviewController;
 use app\controllers\PatientController;
 use app\controllers\RequestChangeController;
@@ -56,5 +57,6 @@ $router->post('/examination',[ExaminationController::class,'addExamination']);
 $router->get('/treatment',[TreatmentController::class,'get']);
 $router->post('/treatment',[TreatmentController::class,'addTreatment']);
 $router->get('/doctor-treatments',[DoctorTreatmentsController::class,'get']);
+$router->get('/logout',[LogoutController::class,'get']);
 
 $router->resolve();

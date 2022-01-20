@@ -1,6 +1,3 @@
-<?php
-// session_destroy();
-?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -47,8 +44,14 @@
       <i class="fas fa-comments message_icon"></i>
     </a>
     <?php endif; ?>
-    <a href="/login"  class="login">Login</a>
-    <a href="/signup" class="signup">Signup</a>
+    <?php if(isset($_SESSION['user']) === false) :?>
+      <a href="/login"  class="login">Login</a>
+      <a href="/signup" class="signup">Signup</a>
+    <?php endif; ?>
+    <?php if(isset($_SESSION["user"])) :?>
+      <!-- <button style="cursor: pointer" onclick="logout()">Logout</button> -->
+      <a href="/logout">Logout</a>
+    <?php endif; ?>
   </div>
 </div>
 <header>
