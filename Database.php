@@ -20,7 +20,9 @@ class Database
 
     public function __construct()
     {
-        $this->pdo = new PDO('mysql:host=localhost;port=3306;dbname=wp-projekat', 'root' ,''); //zbog toga sto se nalazimo u namespace app moramo pored PDO staviti / (jer se ne nalazimo u globalnom namespace)
+        $this->pdo = new PDO('mysql:host=localhost;port=3306;dbname=wp-projekat;', 'root' ,'');
+        // $this->pdo = new PDO('mysql:host=sql309.epizy.com;port=3306;dbname=epiz_30878317_leprog;
+        // username=epiz_30878317;password=XQmGLbvgHmxIh;', 'root' ,'');
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
         self::$db = $this;
