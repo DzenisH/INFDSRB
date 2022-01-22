@@ -24,6 +24,7 @@
                 <th>Phone Number</th>   
                 <th>Email</th> 
                 <th>Type of Disease</th> 
+                <th>Place of treatment</th>
                 <th>Finish treatment</th>  
             </tr>
         </thead>
@@ -39,6 +40,7 @@
                     <td><?php echo $treatment['phone_number'] ?></td>
                     <td><?php echo $treatment['email'] ?></td>
                     <td><?php echo $treatment['type_of_disease'] ?></td>
+                    <td><?php echo $treatment['place_of_treatment'] ?></td>
                     <td><button class="doctorAppointments_perform_btn"
                     onclick="perform('<?php echo $treatment['patient_id'] ?>','<?php echo $treatment['id'] ?>')">Finish</button></td>
                 </tr>

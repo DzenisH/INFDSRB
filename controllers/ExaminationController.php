@@ -26,6 +26,14 @@ class ExaminationController
             $router->db->finishAppointment($appointmentId,$done);
         }
 
+        if(isset($_GET['lumbar_puncture_id']) && isset($_GET['lumbar_puncture_done'])){
+            $lumbarPunctureId = $_GET['lumbar_puncture_id'];
+            $done = $_GET['lumbar_puncture_done'];
+        }
+        if(isset($lumbarPunctureId)===true && isset($done)===true){
+            $router->db->finishLumbarPuncture($lumbarPunctureId,$done);
+        }
+
         $router->renderView('examination',[]);
     }
 

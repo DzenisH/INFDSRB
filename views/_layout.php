@@ -73,16 +73,19 @@
             <?php endif; ?>
             <?php if(isset($_SESSION['user'])) :?>
               <?php if($_SESSION['user']['type'] === "doctor") :?>
-                <li><a href="/doctor-appointments">My Appointments</a></li>
+                <li><a href="/doctor-appointments">Appointments</a></li>
               <?php endif; ?>
             <?php endif; ?>
             <?php if(isset($_SESSION['user'])) :?>
               <?php if($_SESSION['user']['type'] === "doctor") :?>
-                <li><a href="/doctor-treatments">My Treatments</a></li>
+                <li><a href="/doctor-treatments">Treatments</a></li>
               <?php endif; ?>
             <?php endif; ?>
-            <li><a>Hospital treatment</a></li>
-            <li><a>Home treatment</a></li>
+            <?php if(isset($_SESSION['user'])) :?>
+              <?php if($_SESSION['user']['type'] === "doctor") :?>
+                <li><a href="/doctor-lumbarPuncture">Lumbar Puncture</a></li>
+              <?php endif; ?>
+            <?php endif; ?>
           </ul>
         </li>
         <li><a href="/articles">Education</a></li>

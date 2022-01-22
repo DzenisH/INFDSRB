@@ -1,6 +1,8 @@
 <script>
-    function submitTreatment(){
+    function submitTreatment(date){
         const form = document.getElementById('treatment_form');
+        const time = document.getElementById('treatment_time');
+        time.value = date;
         form.submit();
     }
 </script>
@@ -12,14 +14,9 @@
     ];
 ?>
 
-<div class="appointment_container1">
-    <form method="GET" action="">
-        <div class="appointment_container2">
-            <p class="appointment_date_text">Enter the date to schedule an appointment:</p>
-            <input class="appointment_date" placeholder="Y-m-d" name="date" value=""/>
-            <button class="appointment_confirm" type="submit">Confirm</button>
-        </div>
-        <?php if($treatments !== "") :?>
+<div class="appointment_container1" style="flex-direction: column;align-items:center">
+    <?php if($treatments !== "") :?>
+        <div>
             <div class="treatment_choose">
                 <p>Choose one of the offered diseases:</p>  
                 <div class="treatment_diseases">
@@ -39,9 +36,33 @@
                         <p>Meningitis</p>
                     </div>
                 </div>
+            </div>
+            <div class="treatment_choose">
+                <p>Choose where you want to be treated:</p>
+                <div class="treatment_diseases" style="margin-left: -10px;">
+                    <div class="treatment_disease">
+                        <input type="radio" name="place_of_treatment" value="Hospital treatment"
+                        form="treatment_form"/> 
+                        <p>Hospital treatment</p>
+                    </div>
+                    <div class="treatment_disease">
+                        <input type="radio" name="place_of_treatment" value="Home treatment"
+                        form="treatment_form"/> 
+                        <p>Home treatment</p>
+                    </div>
+                </div>
+            </div>
         </div>
+    <?php endif; ?>
+    <form method="GET" action="" style="display: flex;flex-direction:column;">
+        <?php if($date === "") :?>
+            <div class="appointment_container2" style="margin-top: 20px;">
+                <p class="appointment_date_text">Enter the date to schedule an appointment:</p>
+                <input class="appointment_date" placeholder="Y-m-d" name="date" value=""/>
+                <button class="appointment_confirm" type="submit">Confirm</button>
+            </div>
         <?php endif; ?>
-        <div class="appointment_container3">    
+        <div class="appointment_container3" style="align-items: center;">    
         <?php foreach($appointments as $appointment) :?>
                 <?php $flag=0 ?>
                 <?php if(isset($treatments) && $treatments !== "") :?>
@@ -54,12 +75,14 @@
                         <div class="appointment_container4">
                             <p class="appointment_treatment"><?php echo $appointment ?></p> 
                             <input type="button" class="appointment_schedule_btn" value="Schedule"
-                            onclick="submitTreatment()"/>
+                            onclick="submitTreatment('<?php  echo isset($treatments) ?  $date.' '.$appointment.':00' : '0000-00-00 10:10:10' ?>')"/>
                         </div>
                     <?php endif; ?>
                 <?php endif; ?>
             <?php endforeach; ?>
         </div>
     </form>
+    <input type="text" name="treatment_time" id="treatment_time" style="display: none;"
+    form="treatment_form">
     <form method="POST" action="" id="treatment_form" style="display: none;"></form>
 </div>

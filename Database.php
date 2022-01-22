@@ -515,14 +515,14 @@ class Database
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function addTreatment($type_of_disease)
+    public function addTreatment($date,$type_of_disease,$place_of_treatment)
     {
-        $date_time = new DateTime();
         $statement = $this->pdo->prepare('INSERT INTO treatment (date_time,
-        type_of_disease,done,patient_id,doctor_id) VALUES (:date_time,
-        :type_of_disease,:done,:patient_id,:doctor_id)');
-        $statement->bindValue(':date_time',$date_time->format('Y-m-d H:m:s'));
+        type_of_disease,place_of_treatment,done,patient_id,doctor_id) VALUES (:date_time,
+        :type_of_disease,:place_of_treatment,:done,:patient_id,:doctor_id)');
+        $statement->bindValue(':date_time',$date);
         $statement->bindValue(':type_of_disease',$type_of_disease);
+        $statement->bindValue(':place_of_treatment',$place_of_treatment);
         $statement->bindValue(':done',0);
         $statement->bindValue(':patient_id',$_SESSION['user']['id']);
         $statement->bindValue(':doctor_id',$_SESSION['user']['doctor_id']);
@@ -549,6 +549,45 @@ class Database
     public function finishAppointment($id,$done)
     {
         $statement = $this->pdo->prepare('UPDATE appointment SET done=:done WHERE id=:id');
+        $statement->bindValue(':id',$id);
+        $statement->bindValue(':done',$done);
+        $statement->execute();
+    }
+
+    public function getLumbarPunctures($date)
+    {
+        $statement = $this->pdo->prepare('SELECT * FROM lumbar_puncture WHERE date_time LIKE :date AND 
+        done=0');
+        $statement->bindValue(':date',"%$date%");
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function addLumbarPunction($date,$takes_medication)
+    {
+        $statement = $this->pdo->prepare('INSERT INTO lumbar_puncture (date_time,
+        takes_medication,patient_id,doctor_id,done) VALUES (:date_time,
+        :takes_medication,:patient_id,:doctor_id,:done)');
+        $statement->bindValue(':date_time',$date);
+        $statement->bindValue(':takes_medication',$takes_medication);
+        $statement->bindValue(':done',0);
+        $statement->bindValue(':patient_id',$_SESSION['user']['id']);
+        $statement->bindValue(':doctor_id',$_SESSION['user']['doctor_id']);
+        $statement->execute();
+    }
+
+    public function getDoctorLumbarPunctures()
+    {
+        $statement = $this->pdo->prepare('SELECT * FROM lumbar_puncture WHERE doctor_id=:id
+        AND done=0');
+        $statement->bindValue(':id',$_SESSION['user']['id']);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function finishLumbarPuncture($id,$done)
+    {
+        $statement = $this->pdo->prepare('UPDATE lumbar_puncture SET done=:done WHERE id=:id');
         $statement->bindValue(':id',$id);
         $statement->bindValue(':done',$done);
         $statement->execute();

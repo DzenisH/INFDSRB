@@ -30,7 +30,7 @@
                 <p class="overview_title">Schedule a lumbar puncture</p>
                 <p class="overview_text">The most modern devices are used when taking cerebrospinal fluid, so that the pain that is inevitable during this request is reduced to a minimum</p>
                 <?php if(isset($_SESSION['user'])) :?>
-                    <a href="/appointment" class="overview_schedule_link">
+                    <a href="/lumbar-puncture" class="overview_schedule_link">
                         Schedule
                     </a>
                 <?php endif; ?>
