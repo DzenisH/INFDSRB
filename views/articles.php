@@ -23,7 +23,8 @@
         <form method="GET" action="/detailArticle" id="articles_form">
             <?php foreach ($articles as $article):?>
                 <div class="articles_container3">
-                    <img class="articles_image" src="<?php echo $article['image'] ?>"/>
+                    <img class="articles_image" src="<?php echo $article['image'] ?>"
+                    onclick="detailArticle('<?php echo $article['id'] ?>"/>
                     <div class="articles_container4">  
                         <button style="background-color:transparent;border:none;"
                         onclick="detailArticle('<?php echo $article['id'] ?>')" 
@@ -34,8 +35,10 @@
                         </button>
                         <p><?php echo $article['description'] ?></p>
                     </div>
-                    <button class="articles_deleteBtn" type="button"
-                    onclick="deleteArticle('<?php echo $article['id'] ?>')">DELETE</button>
+                    <?php if(isset($_SESSION["user"]) && $_SESSION["user"]["type"] === "doctor") :?>
+                        <button class="articles_deleteBtn" type="button"
+                        onclick="deleteArticle('<?php echo $article['id'] ?>')">DELETE</button>
+                    <?php endif; ?> 
                 </div>
             <?php endforeach; ?>
             <input style="display: none;" name="id" id="articles_id"/>

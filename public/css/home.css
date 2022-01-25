@@ -46,3 +46,23 @@
     font-size: 2rem;
     line-height: 2.8125rem
 }
+
+.home_container4{
+    display: flex;
+}
+
+.home_happy_patient{
+    height: 400px;
+    width: 350px;
+}
+
+.home_happy_patient_text{
+    height: 40%;
+    background-color: #00D7D1;
+}
+.home_happy_patient_picture{
+    height: 60%;
+    background-image: url('../images/home/happyPatient.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
