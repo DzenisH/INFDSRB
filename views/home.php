@@ -13,10 +13,32 @@
     <div class="home_container3">
         <div class="home_container4">
             <div class="home_happy_patient">
-                <div class="home_happy_patient_text">
-
+                <div class="home_happy_patient_text_container">
+                    <p class="home_happy_patient_text">
+                        You are treated in the best conditions
+                    </p>
                 </div>
                 <div class="home_happy_patient_picture">
+                    
+                </div>
+            </div>
+            <div class="home_happy_patient" style="margin-left: 50px;">
+                <div class="home_happy_patient_text_container">
+                    <p class="home_happy_patient_text">
+                        by the best experts in their field
+                    </p>
+                </div>
+                <div class="home_expert_picture">
+                    
+                </div>
+            </div>
+            <div class="home_happy_patient" style="margin-left: 50px">
+                <div class="home_happy_patient_text_container">
+                    <p class="home_happy_patient_text" style="padding-left: 45px;">
+                        at the lowest prices
+                    </p>
+                </div>
+                <div class="home_price_picture">
                     
                 </div>
             </div>

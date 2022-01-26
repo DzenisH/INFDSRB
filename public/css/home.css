@@ -6,7 +6,6 @@
 
 .home_container{
     width: 100%;
-    height: 800px;
 }
 
 .home_picture{
@@ -47,22 +46,56 @@
     line-height: 2.8125rem
 }
 
+.home_container3{
+    margin-top: 80px;
+    margin-bottom: 200px;
+    display: flex;
+    justify-content: center;
+}
+
 .home_container4{
     display: flex;
 }
 
 .home_happy_patient{
-    height: 400px;
+    height: 350px;
     width: 350px;
 }
 
-.home_happy_patient_text{
-    height: 40%;
+.home_happy_patient_text_container{
+    height: 45%;
     background-color: #00D7D1;
+    display: flex;
+    align-items:center;
+}
+
+.home_happy_patient_text{
+    color: #fff;
+    font-weight: bold;
+    font-size: 30px;
+    font-family: 'Source Sans Pro','News Cycle',sans-serif;
+    text-align: center;
+    padding-left: 15px;
+    padding-right: 15px;    
+    
 }
 .home_happy_patient_picture{
-    height: 60%;
+    height: 55%;
     background-image: url('../images/home/happyPatient.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.home_expert_picture{
+    height: 55%;
+    background-image: url('../images/home/expert.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.home_price_picture{
+    height: 55%;
+    background-image: url('../images/home/price2.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
