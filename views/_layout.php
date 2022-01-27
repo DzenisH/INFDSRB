@@ -119,9 +119,6 @@
           <li><a href="/">Contact Us</a></li>
         <?php endif; ?>
       </ul>
-      <!-- <label for="check" class="checkbtn">
-        <img src="/images/bar.png" alt="bar" class="bar"/>
-      </label> -->
       <p style="align-self:center"><?php echo isset($_SESSION['user']) && $_SESSION["user"]["type"] !== "admin"  ?  $_SESSION['user']['username'] : '' ?></p>
     </div>
   </div>

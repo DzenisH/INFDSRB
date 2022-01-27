@@ -27,6 +27,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 $router = new Router();
 
 $router->get('/',[HomeController::class,'index']);  //for route '/' call get method of PatientController
+$router->get('/index',[HomeController::class,'index']); 
 $router->get('/login',[AccountController::class,'login']);
 $router->post('/login',[AccountController::class,'login']);
 $router->get('/signup',[AccountController::class,'signup']);

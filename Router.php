@@ -32,6 +32,7 @@ class Router
     public function resolve() 
     {
         $currentUrl = $_SERVER['REQUEST_URI'] ?? '/';
+        
         if(strpos($currentUrl,'?') !== false){
             $currentUrl = substr($currentUrl,0,strpos($currentUrl,'?'));
         }
