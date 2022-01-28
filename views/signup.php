@@ -16,6 +16,16 @@
         const country_of_birth = document.getElementById('signup-country_of_birth');
         const phone_number = document.getElementById('signup-phone_number');
         const phoneRegex = /\D/;
+        let flag = false;
+        const image = document.getElementById('signup_image');
+        if(image.value === ''){
+            flag = true;
+        }
+        if(flag){
+            image.style.border = '2px solid red';
+        }else{
+            image.style.border = 'none';
+        }
         if(phone_number.value.match(phoneRegex)){
             phone_number.style.border = '2px solid red';
         }else{
@@ -73,7 +83,7 @@
             && (jmbg.value).length === 14 && password.value === passwordConfirm.value &&
             (name.value).length > 0 && (last_name.value).length > 0 && (place_of_birth.value).length > 0 
             && (country_of_birth.value).length > 0 && !phone_number.value.match(phoneRegex)
-            && (phone_number.value).length > 0){
+            && (phone_number.value).length > 0 && !flag){   
             return true;
         }else{
             return false;
@@ -139,7 +149,7 @@
                         <p id="passwordConfirm-error" class="signup_error">Please enter correct password</p>
                         <div style="margin-top: 14px;">
                             <p style="margin-bottom: 5px;">Image</p>
-                            <input name="image" type="file"/>
+                            <input name="image" type="file" id="signup_image"/>
                         </div>
                         <input class="signup_input" style="display: none;" id="type" name="type"/>
                     </div>
