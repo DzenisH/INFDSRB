@@ -21,7 +21,7 @@ class Database
     public function __construct()
     {
         $this->pdo = new PDO('mysql:host=localhost;port=3306;dbname=wp-projekat;', 'root' ,'');
-        //$this->pdo = new PDO('mysql:host=localhost;port=3306;dbname=id18354397_infdsrb','id18354397_infdsrb123' ,'Wdplt3{Wvk{ZJzb!');
+        // $this->pdo = new PDO('mysql:host=localhost;port=3306;dbname=id18354397_infdsrb','id18354397_infdsrb123' ,'Wdplt3{Wvk{ZJzb!');
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
         self::$db = $this;
@@ -185,9 +185,11 @@ class Database
     public function createPatient(Patient $patient)
     {
         $statement = $this->pdo->prepare("INSERT INTO patient (username,name,last_name,gender,
-        place_of_birth,country_of_birth,date_of_birth,JMBG,phone_number,email,password,type,image,accepted)
+        place_of_birth,country_of_birth,date_of_birth,JMBG,phone_number,email,password,type,image,accepted,
+        request_change,change_doctor_id)
         VALUES (:username,:name,:last_name,:gender,:place_of_birth,:country_of_birth,:date_of_birth,
-        :JMBG,:phone_number,:email,:password,:type,:image,:accepted)");
+        :JMBG,:phone_number,:email,:password,:type,:image,:accepted,:request_change,
+        :change_doctor_id)");
         $statement->bindValue(":username",$patient->username);
         $statement->bindValue(":name",$patient->name);
         $statement->bindValue(":last_name",$patient->last_name);
@@ -202,6 +204,8 @@ class Database
         $statement->bindValue(":type",$patient->type);
         $statement->bindValue(":image",$patient->image);
         $statement->bindValue(":accepted",$patient->accepted);
+        $statement->bindValue(":request_change",$patient->request_change);
+        $statement->bindValue(":change_doctor_id",$patient->change_doctor_id);
         $statement->execute();
     }
     public function createDoctor(Doctor $doctor)

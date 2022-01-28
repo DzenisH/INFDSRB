@@ -13,7 +13,7 @@ class Doctor{
     public ?string $country_of_birth = null;
     public ?DateTime $date_of_birth = null;
     public ?int $jmbg = null;
-    public ?int $phone_number = null;
+    public ?string $phone_number = null;
     public ?string $email = null;
     public ?string $password = null;
     public ?string $type = null;
@@ -28,7 +28,7 @@ class Doctor{
         $this->gender = $data["gender"];
         $this->place_of_birth = $data["place_of_birth"];
         $this->country_of_birth = $data["country_of_birth"];
-        $this->date_of_birth =new DateTime($_POST["date_of_birth"]); //date must be entered in format year-month-day
+        $this->date_of_birth = DateTime::createFromFormat('Y-m-d',$_POST["date_of_birth"]); //date must be entered in format year-month-day
         $this->jmbg = $data["jmbg"];
         $this->phone_number = $data["phone_number"];
         $this->email = $data["email"];

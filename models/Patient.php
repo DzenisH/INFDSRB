@@ -15,7 +15,7 @@ class Patient
     public ?string $country_of_birth = null;
     public ?DateTime $date_of_birth = null;
     public ?int $jmbg = null;
-    public ?int $phone_number = null;
+    public ?string $phone_number = null;
     public ?string $email = null;
     public ?string $password = null;
     public ?string $type = null;

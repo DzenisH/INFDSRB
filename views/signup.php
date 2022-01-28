@@ -14,6 +14,13 @@
         const last_name = document.getElementById('signup-last_name');
         const place_of_birth = document.getElementById('signup-place_of_birth');
         const country_of_birth = document.getElementById('signup-country_of_birth');
+        const phone_number = document.getElementById('signup-phone_number');
+        const phoneRegex = /\D/;
+        if(phone_number.value.match(phoneRegex)){
+            phone_number.style.border = '2px solid red';
+        }else{
+            phone_number.style.border = 'none';
+        }
         if(!password.value.match(passwordRegex)){
             password.style.border = '2px solid red';
             document.getElementById('password-error').style.display = 'block';
@@ -65,7 +72,8 @@
         if(password.value.match(passwordRegex) && email.value.match(emailRegex)
             && (jmbg.value).length === 14 && password.value === passwordConfirm.value &&
             (name.value).length > 0 && (last_name.value).length > 0 && (place_of_birth.value).length > 0 
-            && (country_of_birth.value).length > 0){
+            && (country_of_birth.value).length > 0 && !phone_number.value.match(phoneRegex)
+            && (phone_number.value).length > 0){
             return true;
         }else{
             return false;
@@ -124,7 +132,7 @@
                         <input type="date" required name="date_of_birth" class="signup_input"/>
                         <input class="signup_input" placeholder="JMBG" type="number" name="jmbg" id="signup-jmbg"/>
                         <p id="jmbg-error" class="signup_error">Enter exactly 14 characters</p>
-                        <input class="signup_input" placeholder="Phone Number" type="number" name="phone_number"/>
+                        <input class="signup_input" placeholder="Phone Number" name="phone_number" id="signup-phone_number"/>
                         <input class="signup_input" placeholder="Password" name="password" id="signup-password" type="password"/>
                         <p id="password-error" class="signup_error">At least 8 characters long,Include at least 1 lowercase letter,1 capital letter,1 number,1 special character</p>
                         <input class="signup_input" placeholder="Confirm Password" id="signup-passwordConfirm" type="password"/>
