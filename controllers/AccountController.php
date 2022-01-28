@@ -47,7 +47,6 @@ class AccountController
     public function signup(Router $router)
     {
         if($_SERVER["REQUEST_METHOD"]==="POST"){
-            $image = $_FILES['image'];
             $fileName = $_FILES['image']['name'];
             $fileTmpName = $_FILES['image']['tmp_name']; //before uploading file is in some temporary directory
             $fileError = $_FILES['image']['error'];  

@@ -32,7 +32,7 @@ class Patient
         $this->gender = $data["gender"];
         $this->place_of_birth = $data["place_of_birth"];
         $this->country_of_birth = $data["country_of_birth"];
-        $this->date_of_birth =new DateTime($_POST["date_of_birth"]); //date must be entered in format year-month-day
+        $this->date_of_birth = DateTime::createFromFormat('Y-m-d',$_POST["date_of_birth"]); 
         $this->jmbg = $data["jmbg"];
         $this->phone_number = $data["phone_number"];
         $this->email = $data["email"];

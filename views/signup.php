@@ -120,13 +120,14 @@
                         <p id="email-error" class="signup_error">anystring@anystring.anystring(without multiple @)</p>
                     </div>
                     <div class="signup_container7">
-                        <input class="signup_input" placeholder="Date of birth(dd-mm-yyyy)" name="date_of_birth"/>
+                        <!-- <input class="signup_input" placeholder="Date of birth(dd-mm-yyyy)" name="date_of_birth"/> -->
+                        <input type="date" required name="date_of_birth" class="signup_input"/>
                         <input class="signup_input" placeholder="JMBG" type="number" name="jmbg" id="signup-jmbg"/>
                         <p id="jmbg-error" class="signup_error">Enter exactly 14 characters</p>
                         <input class="signup_input" placeholder="Phone Number" type="number" name="phone_number"/>
-                        <input class="signup_input" placeholder="Password" name="password" id="signup-password"/>
+                        <input class="signup_input" placeholder="Password" name="password" id="signup-password" type="password"/>
                         <p id="password-error" class="signup_error">At least 8 characters long,Include at least 1 lowercase letter,1 capital letter,1 number,1 special character</p>
-                        <input class="signup_input" placeholder="Confirm Password" id="signup-passwordConfirm"/>
+                        <input class="signup_input" placeholder="Confirm Password" id="signup-passwordConfirm" type="password"/>
                         <p id="passwordConfirm-error" class="signup_error">Please enter correct password</p>
                         <div style="margin-top: 14px;">
                             <p style="margin-bottom: 5px;">Image</p>
