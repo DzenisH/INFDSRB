@@ -18,9 +18,6 @@ class AccountController
             'password' => ''
         ];
 
-        $p = [];
-
-
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $loginData['email'] = $_POST['email'];
             $user = [];
@@ -94,16 +91,29 @@ class AccountController
                 $patient = new Patient();
                 $patient->load($data);
                 $patient->savePatient();
-                header('Location:/');
+                SendEmail($_POST["email"],$_POST["name"]);
+                header("Location:/verification?email={$_POST["email"]}");
             }else if($_POST["type"] === "doctor"){
                 $doctor = new Doctor();
                 $data["username"] = $username;
                 $doctor->load($data);
                 $doctor->saveDoctor();
-                header('Location:/');
+                header("Location:/verification?email={$_POST["email"]}");
             }
 
         }
         $router->renderView('signup',[]);
     }
+
+}
+
+function SendEmail($email,$name){
+    $to = $email;
+    $subject = "Verification Code";
+    $code = uniqid();
+    $message="Hello {$name},<br> You got new message from INFDSRB:<br> <br>
+    To complete the sign up,enter the verification code: <b>{$code}</b> <br>Best wishes,<br>INFDSRB team";
+    $headers = "From: The sender Name<dzenishadzifejzovic@tpssjenica.com>\r\n";
+    $headers .= "Content-type: text/html\r\n";  
+    mail($to,$subject,$message,$headers);
 }

@@ -138,7 +138,6 @@
                         <p id="email-error" class="signup_error">anystring@anystring.anystring(without multiple @)</p>
                     </div>
                     <div class="signup_container7">
-                        <!-- <input class="signup_input" placeholder="Date of birth(dd-mm-yyyy)" name="date_of_birth"/> -->
                         <input type="date" required name="date_of_birth" class="signup_input"/>
                         <input class="signup_input" placeholder="JMBG" type="number" name="jmbg" id="signup-jmbg"/>
                         <p id="jmbg-error" class="signup_error">Enter exactly 14 characters</p>

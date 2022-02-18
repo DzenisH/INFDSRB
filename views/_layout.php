@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="/css/doctorAppointments.css"/>
     <link rel="stylesheet" href="/css/examination.css"/>
     <link rel="stylesheet" href="/css/treatment.css"/>
+    <link rel="stylesheet" href="/css/verification.css"/>
     <!--JS-->
     <script src="/js/_layout.js" defer></script>
     <!--GOOGLE FONTS-->

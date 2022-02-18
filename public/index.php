@@ -20,6 +20,7 @@ use app\controllers\PatientController;
 use app\controllers\RequestChangeController;
 use app\controllers\RequestController;
 use app\controllers\TreatmentController;
+use app\controllers\VerificationController;
 use app\Router;
 
 require_once __DIR__.'/../vendor/autoload.php';
@@ -64,5 +65,6 @@ $router->get('/logout',[LogoutController::class,'get']);
 $router->get('/lumbar-puncture',[LumbarPunctureController::class,'get']);
 $router->post('/lumbar-puncture',[LumbarPunctureController::class,'addLumbarPuncture']);
 $router->get('/doctor-lumbarPuncture',[DoctorLumbarPunctureController::class,'get']);
+$router->get('/verification',[VerificationController::class,'get']);
 
 $router->resolve();
