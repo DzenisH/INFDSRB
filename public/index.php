@@ -66,5 +66,6 @@ $router->get('/lumbar-puncture',[LumbarPunctureController::class,'get']);
 $router->post('/lumbar-puncture',[LumbarPunctureController::class,'addLumbarPuncture']);
 $router->get('/doctor-lumbarPuncture',[DoctorLumbarPunctureController::class,'get']);
 $router->get('/verification',[VerificationController::class,'get']);
+$router->post('/verification',[VerificationController::class,'verify']);
 
 $router->resolve();

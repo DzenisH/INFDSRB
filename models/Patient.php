@@ -23,6 +23,8 @@ class Patient
     public ?string $accepted = null;
     public ?int $request_change = null;
     public ?int $change_doctor_id = null;
+    public ?string $verification_code = null;
+    public ?string $verified = null;
 
     public function load($data)
     {
@@ -42,6 +44,8 @@ class Patient
         $this->image = $data["image"];
         $this->request_change = $data["request_change"];
         $this->change_doctor_id = $data["change_doctor_id"];
+        $this->verification_code = $data["verification_code"];
+        $this->verified = $data["verified"];
     }
 
     public function savePatient()

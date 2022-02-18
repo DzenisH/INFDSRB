@@ -2,9 +2,6 @@
 
 namespace app\controllers;
 
-// session_start();
-// session_destroy();
-
 use app\models\Doctor;
 use app\models\Patient;
 use app\Router;
@@ -64,6 +61,7 @@ class AccountController
             } else{
                 echo "You cannot upload files of this type!";
             }
+            $code = uniqid();
             $data = [
                 "name" => $_POST["name"],
                 "last_name" => $_POST["last_name"],
@@ -80,6 +78,8 @@ class AccountController
                 "accepted" => 0,  //admin must accept user as patient or doctor
                 "request_change" => 0, //if this is 1 that means that patient send request for changing doctor
                 "change_doctor_id" => 0,
+                "verification_code" => $code,
+                "verified" => 0
             ];
             $username = $_POST["name"].rand(1,200);
             while($router->db->Check($username)){
@@ -91,29 +91,28 @@ class AccountController
                 $patient = new Patient();
                 $patient->load($data);
                 $patient->savePatient();
-                SendEmail($_POST["email"],$_POST["name"]);
+                SendEmail($_POST["email"],$_POST["name"],$code);
                 header("Location:/verification?email={$_POST["email"]}");
             }else if($_POST["type"] === "doctor"){
                 $doctor = new Doctor();
                 $data["username"] = $username;
                 $doctor->load($data);
                 $doctor->saveDoctor();
+                SendEmail($_POST["email"],$_POST["name"],$code);
                 header("Location:/verification?email={$_POST["email"]}");
             }
-
         }
         $router->renderView('signup',[]);
     }
 
 }
 
-function SendEmail($email,$name){
+function SendEmail($email,$name,$code){
     $to = $email;
     $subject = "Verification Code";
-    $code = uniqid();
     $message="Hello {$name},<br> You got new message from INFDSRB:<br> <br>
     To complete the sign up,enter the verification code: <b>{$code}</b> <br>Best wishes,<br>INFDSRB team";
-    $headers = "From: The sender Name<dzenishadzifejzovic@tpssjenica.com>\r\n";
+    $headers = "From: Dzenis<dzenishadzifejzovic@tpssjenica.com>\r\n";
     $headers .= "Content-type: text/html\r\n";  
     mail($to,$subject,$message,$headers);
 }

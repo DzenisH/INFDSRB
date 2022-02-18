@@ -30,6 +30,7 @@ class ChoiceController
             $type = $_POST["type"];
             if($type === "select"){
                 $router->db->assignDoctor($doctor_id);
+                $_SESSION["user"]["doctor_id"] = $doctor_id;
             }else{
                 $router->db->requestChange($doctor_id);
             }

@@ -25,13 +25,13 @@
     padding-top: 10px;
     padding-bottom: 10px;
     font-weight: bold;
+    margin-top: 20px;
 }
 .verification_verifyBtn:hover{
     cursor: pointer;
 }
-.verification_input{
+.verification_codeInput1{
     width: 100%;
-    margin-bottom: 20px;
     height: 35px;
     padding-left: 10px;
     font-size: 20px;
@@ -42,4 +42,7 @@
 }
 .verification_confirm{
     margin-top: 10px;
+}
+.verification_error{
+    color: red;
 }

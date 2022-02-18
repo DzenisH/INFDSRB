@@ -1,6 +1,6 @@
 <div class="login_container">
     <div class="login_container2">
-        <h4 class="login_header">Login</h4>
+        <h4 class="login_header">Sign in</h4>
         <p class="login_account">Have an account?</p>
         <p class="login_accepted">
             <?php if(isset($user)) :?>

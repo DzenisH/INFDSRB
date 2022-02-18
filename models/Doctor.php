@@ -19,6 +19,8 @@ class Doctor{
     public ?string $type = null;
     public ?string $image = null;
     public ?string $accepted = null;
+    public ?string $verification_code = null;
+    public ?string $verified = null;
 
     public function load($data)
     {
@@ -36,6 +38,8 @@ class Doctor{
         $this->type = $data["type"];
         $this->accepted = $data["accepted"];
         $this->image = $data["image"];
+        $this->verification_code = $data["verification_code"];
+        $this->verified = $data["verified"];
     }
 
     public function saveDoctor()

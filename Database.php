@@ -20,8 +20,8 @@ class Database
 
     public function __construct()
     {
-        $this->pdo = new PDO('mysql:host=localhost;port=3306;dbname=wp-projekat;', 'root' ,'');
-        // $this->pdo = new PDO('mysql:host=localhost;port=3306;dbname=id18354397_infdsrb','id18354397_infdsrb123' ,'Wdplt3{Wvk{ZJzb!');
+        //$this->pdo = new PDO('mysql:host=localhost;port=3306;dbname=wp-projekat;', 'root' ,'');
+        $this->pdo = new PDO('mysql:host=localhost;port=3306;dbname=id18354397_infdsrb','id18354397_infdsrb123' ,'Wdplt3{Wvk{ZJzb!');
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
         self::$db = $this;
@@ -43,18 +43,18 @@ class Database
         $patient =  $statement->fetchAll(PDO::FETCH_ASSOC);
         if(count($patient) !== 0){
             $statement = $this->pdo->prepare('SELECT * FROM patient WHERE email = :email AND password = :password
-            AND accepted=1');
+            AND accepted=1 AND verified=1');
             $statement->bindValue(':email',$login['email']);
             $statement->bindValue(':password',$login['password']);
             $statement->execute();
             $patient =  $statement->fetchAll(PDO::FETCH_ASSOC);
             if(count($patient) === 0){
-                return ''; //when we return this that means the user entered corect informtaion but it has not yet been accepted by the admin
+                return ''; //when we return this that means the user entered corect information but it has not yet been accepted by the admin
             }
         }
         if(count($patient) === 0){
             $statement2 = $this->pdo->prepare('SELECT * FROM doctor WHERE email = :email AND password = :password
-            AND accepted=1');
+            AND accepted=1 AND verified=1');
             $statement2->bindValue(':email',$login['email']);
             $statement2->bindValue(':password',$login['password']);
             $statement2->execute();
@@ -186,10 +186,10 @@ class Database
     {
         $statement = $this->pdo->prepare("INSERT INTO patient (username,name,last_name,gender,
         place_of_birth,country_of_birth,date_of_birth,JMBG,phone_number,email,password,type,image,accepted,
-        request_change,change_doctor_id)
+        request_change,change_doctor_id,verification_code,verified)
         VALUES (:username,:name,:last_name,:gender,:place_of_birth,:country_of_birth,:date_of_birth,
         :JMBG,:phone_number,:email,:password,:type,:image,:accepted,:request_change,
-        :change_doctor_id)");
+        :change_doctor_id,:verification_code,:verified)");
         $statement->bindValue(":username",$patient->username);
         $statement->bindValue(":name",$patient->name);
         $statement->bindValue(":last_name",$patient->last_name);
@@ -206,14 +206,18 @@ class Database
         $statement->bindValue(":accepted",$patient->accepted);
         $statement->bindValue(":request_change",$patient->request_change);
         $statement->bindValue(":change_doctor_id",$patient->change_doctor_id);
+        $statement->bindValue(":verification_code",$patient->verification_code);
+        $statement->bindValue(":verified",$patient->verified);
         $statement->execute();
     }
     public function createDoctor(Doctor $doctor)
     {
         $statement = $this->pdo->prepare("INSERT INTO doctor (username,name,last_name,gender,
-        place_of_birth,country_of_birth,date_of_birth,JMBG,phone_number,email,password,type,image,accepted)
-        VALUES (:username,:name,:last_name,:gender,:place_of_birth,:country_of_birth,:date_of_birth,
-        :JMBG,:phone_number,:email,:password,:type,:image,:accepted)");
+        place_of_birth,country_of_birth,date_of_birth,JMBG,phone_number,email,password,type,
+        image,accepted,verification_code,verified)
+        VALUES (:username,:name,:last_name,:gender,:place_of_birth,:country_of_birth,
+        :date_of_birth,:JMBG,:phone_number,:email,:password,:type,
+        :image,:accepted,:verification_code,:verified)");
         $statement->bindValue(":username",$doctor->username);
         $statement->bindValue(":name",$doctor->name);
         $statement->bindValue(":last_name",$doctor->last_name);
@@ -228,19 +232,21 @@ class Database
         $statement->bindValue(":type",$doctor->type);
         $statement->bindValue(":image",$doctor->image);
         $statement->bindValue(":accepted",$doctor->accepted);
+        $statement->bindValue(":verification_code",$doctor->verification_code);
+        $statement->bindValue(":verified",$doctor->verified);
         $statement->execute();
     }
 
     public function getNotAcceptedPatients()
     {
-        $statement = $this->pdo->prepare('SELECT * FROM patient WHERE accepted=0');
+        $statement = $this->pdo->prepare('SELECT * FROM patient WHERE accepted=0 AND verified=1');
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getNotAcceptedDoctors()
     {
-        $statement = $this->pdo->prepare('SELECT * FROM doctor WHERE accepted=0');
+        $statement = $this->pdo->prepare('SELECT * FROM doctor WHERE accepted=0 AND verified=1');
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -596,6 +602,42 @@ class Database
         $statement->bindValue(':id',$id);
         $statement->bindValue(':done',$done);
         $statement->execute();
+    }
+
+    public function verify($email,$code)
+    {
+        $patient = [];
+        $statement = $this->pdo->prepare('SELECT * FROM patient WHERE email=:email AND verification_code=:code');
+        $statement->bindValue(':email',$email);
+        $statement->bindValue(':code',$code);
+        $statement->execute();
+        $patient = $statement->fetchAll(PDO::FETCH_ASSOC);
+        if(count($patient) === 0){
+            $statement = $this->pdo->prepare('SELECT * FROM doctor WHERE email=:email AND verification_code=:code');
+            $statement->bindValue(':email',$email);
+            $statement->bindValue(':code',$code);
+            $statement->execute();
+            $doctor = $statement->fetchAll(PDO::FETCH_ASSOC);
+            if(count($doctor) === 0){
+                return false;  //code is incorrect
+            }else{
+                $statement = $this->pdo->prepare('UPDATE doctor SET verified=1
+                AND verification_code=NULL WHERE 
+                email=:email AND verification_code=:code');
+                $statement->bindValue(':email',$email);
+                $statement->bindValue(':code',$code);
+                $statement->execute();
+                return true;
+            }
+
+        }else{
+            $statement = $this->pdo->prepare('UPDATE patient SET verified=1,verification_code=NULL WHERE 
+            email=:email AND verification_code=:code');
+            $statement->bindValue(':email',$email);
+            $statement->bindValue(':code',$code);
+            $statement->execute();
+            return true;
+        }
     }
 
 }

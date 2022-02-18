@@ -40,18 +40,24 @@
 <body>
 <div class="loginContainer">
   <div class="loginContainer2">
-    <?php if(isset($_SESSION["user"]) && $_SESSION["user"]["type"] !== "admin" ) :?>
-    <a href="/chat">
-      <i class="fas fa-comments message_icon"></i>
-    </a>
+    <?php if(isset($_SESSION["user"]) && $_SESSION["user"]["type"] !== "admin") :?>
+      <?php if((isset($_SESSION["user"]["doctor_id"]) === true && 
+        $_SESSION["user"]["doctor_id"] !== null) || ($_SESSION["user"]["type"] === "doctor")) :?>
+        <a href="/chat">
+          <i class="fas fa-comments message_icon"></i>
+        </a>
+      <?php endif; ?>
     <?php endif; ?>
     <?php if(isset($_SESSION['user']) === false) :?>
-      <a href="/login"  class="login">Login</a>
-      <a href="/signup" class="signup">Signup</a>
+      <div style="display: flex;">
+        <a href="/login" style="text-decoration: none;">Sign in</a>
+        <p style="margin-left: 6px;margin-right:6px">|</p>
+        <a href="/signup" style="text-decoration: none;">Sign up</a>
+      </div>
     <?php endif; ?>
     <?php if(isset($_SESSION["user"])) :?>
       <!-- <button style="cursor: pointer" onclick="logout()">Logout</button> -->
-      <a href="/logout">Logout</a>
+      <a href="/logout" style="text-decoration: none;">Logout</a>
     <?php endif; ?>
   </div>
 </div>
