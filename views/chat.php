@@ -1,6 +1,7 @@
 
 
 <script>
+
     function show(id) {
         const form = document.getElementById("form");
         const input = document.getElementById("input");
@@ -11,17 +12,29 @@
     }
 
     function send(){
-        const sendForm = document.getElementById("sendForm");
+        const form = document.getElementById("chat_send_message_form");
         const inputType = document.getElementById("inputType");
+        const chatInput = document.getElementById("chat_input");
+        const errorMessage = document.getElementById("chat_error_message");
         inputType.value = "one";
-        sendForm.submit();
+        if(chatInput.value === ""){
+            errorMessage.style.display = "block"
+        }else{
+            form.submit();
+        }
     }
 
     function sendToAll(){
-        const sendForm = document.getElementById("sendForm");
+        const form = document.getElementById("chat_send_message_form");
         const inputType = document.getElementById("inputType");
+        const chatInput = document.getElementById("chat_input");
+        const errorMessage = document.getElementById("chat_error_message");
         inputType.value = "everyone";
-        sendForm.submit();
+        if(chatInput.value === ""){
+            errorMessage.style.display = "block"
+        }else{
+            form.submit();
+        }
     }
 </script>
 
@@ -33,11 +46,15 @@
                 <?php if($_SESSION["user"]["type"] === "doctor") :?>
                     <?php foreach ($patients as $patient) :?>
                         <li style="margin-top:20px;border-bottom:1px solid #fff">
-                            <div class="chat_list_content">
-                                <div class="chat_image_container">
-                                    <img class="chat_image" src="<?php echo $patient["image"] ?>" alt="patient"/>
+                            <div class="chat_list_content" style="text-align:center">
+                                <div class="chat_image_container" style="border:none;width:40px;height:40px;align-self:flex-end">
+                                    <button onclick="show(<?php echo $patient['id'] ?>)"
+                                    style="background-color: transparent;border:none;
+                                    border-radius:50%;cursor:pointer">
+                                        <img class="chat_image" src="<?php echo $patient["image"] ?>" alt="patient"/>
+                                   </button>
                                 </div>
-                                <div class="chat_container3">
+                                <div class="chat_container3" style="margin-top: 20px;">
                                     <button class="submitBtn" onclick="show(<?php echo $patient['id'] ?>)"
                                     style="background-color: transparent;border:none">
                                         <p class="chat_name"><?php echo $patient["name"]?> <?php echo $patient["last_name"] ?></p>
@@ -50,11 +67,15 @@
                 <?php else : ?>
                     <input type="text" id="input2" style="display: none;" name="doctor_id" value=""/>
                     <li style="margin-top:20px;border-bottom:1px solid #fff">
-                        <div class="chat_list_content">
-                            <div class="chat_image_container">
-                                <img class="chat_image" src="/images/chat/patient.jpg" alt="patient"/>
+                        <div class="chat_list_content" style="text-align:center">
+                            <div class="chat_image_container" style="border:none;width:40px;height:40px;align-self:flex-end">
+                                <button onclick="show(<?php echo $patient['id'] ?>)"
+                                style="background-color:transparent;border:none;
+                                border-radius:50%;cursor:pointer">
+                                    <img class="chat_image" src="<?php echo $doctor["image"] ?>" alt="doctor"/>
+                                </button>
                             </div>
-                            <div class="chat_container3">
+                            <div class="chat_container3" style="margin-top: 20px;">
                                 <button class="submitBtn" onclick="show(<?php echo $doctor['id'] ?>)"
                                 style="background-color: transparent;border:none">
                                     <p class="chat_name"><?php echo $doctor["name"]?> <?php echo $doctor["last_name"] ?></p>
@@ -71,11 +92,11 @@
     <div class="chat_container4">
         <div class="chat_container5">
             <div class="chat_image_container2">
-                <!-- <img class="chat_image" src="/images/chat/patient.jpg" alt="patient"/> -->
-                <img class="chat_image" src="<?php echo $CurrentPatient["image"]?>" alt="patient"/>
+                <!--ovde-->
+                <img class="chat_image" src="<?php echo $_SESSION["user"]["type"] === "patient" ? $doctor["image"] : $CurrentPatient["image"]?>" alt="patient"/>
             </div>
             <div class="chat_container6">
-                <p class="chat_chat_with"> <?php echo $CurrentPatient === '' ? ''  : "Chat with" ?> <?php echo $_SESSION["user"]["type"] === "doctor" ?  ($CurrentPatient === '' ? "There are no patients"  : $CurrentPatient["name"]) : $doctor["name"] ?></p>
+                <p class="chat_chat_with"> <?php echo $CurrentPatient === '' ? ''  : "Chat with" ?> <?php echo $_SESSION["user"]["type"] === "doctor" ?  ($CurrentPatient === '' ? "There is no selected patient"  : $CurrentPatient["name"]) : $doctor["name"] ?></p>
             </div>
         </div>
 
@@ -125,14 +146,23 @@
         
         <div>
              
-        <form method="POST" action="" id="sendForm">
+        <form method="POST" action="" id="chat_send_message_form">
+            <p id="chat_error_message">You can't send empty message!</p>
             <div class="chat_sent_message_container">
                 <div class="chat_sent_message">
-                    <input class="chat_input" name="content"></input>
+                    <input class="chat_input" name="content" id="chat_input"></input>
                     <input style="display: none;" name="type" id="inputType"/>
                     <div style="align-self: flex-end;">
-                        <button  class="chat_button" onclick="send()">SEND</button>
-                        <button  class="chat_button" onclick="sendToAll()" style="margin-left: 330px;">SEND TO ALL PATIENTS</button>
+                        <button type="button" class="chat_button" 
+                        onclick="send()">
+                            SEND
+                        </button>
+                        <?php if($_SESSION["user"]["type"] === "doctor") :?>
+                            <button type="button"  class="chat_button" 
+                            onclick="sendToAll()" style="margin-left: 330px;">
+                                SEND TO ALL PATIENTS
+                            </button>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

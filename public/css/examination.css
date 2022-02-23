@@ -55,3 +55,15 @@
     padding: 12px;
     color: #fff;
 }
+
+#examination_error_diagnosis{
+    display: none;
+    color: red;
+    font-size: 14px;
+}
+
+#examination_error_therapy{
+    display: none;
+    color: red;
+    font-size: 14px;
+}

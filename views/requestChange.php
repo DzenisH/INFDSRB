@@ -21,7 +21,7 @@
 
 
 <div class="patients_container">
-    <h1 class="patients_header">Your Patients</h1>
+    <h1 class="patients_header" style="margin-left: 100px;">Requests</h1>
     <table class="patients_table">
         <thead>
             <tr class="patient_table_header">

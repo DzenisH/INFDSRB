@@ -6,7 +6,7 @@ use app\models\Doctor;
 use app\models\Patient;
 use app\Router;
 
-class AccountController
+class AccountController 
 {
     public function login(Router $router)
     {

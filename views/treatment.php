@@ -15,53 +15,52 @@
 ?>
 
 <div class="appointment_container1" style="flex-direction: column;align-items:center">
-    <?php if($treatments !== "") :?>
-        <div>
-            <div class="treatment_choose">
-                <p>Choose one of the offered diseases:</p>  
-                <div class="treatment_diseases">
-                    <div class="treatment_disease">
-                        <input type="radio" name="type_of_disease" value="Genital herpes"
-                        form="treatment_form"/> 
-                        <p>Genital herpes</p>
-                    </div>
-                    <div class="treatment_disease">
-                        <input type="radio" name="type_of_disease" value="Hepatitis"
-                        form="treatment_form"/> 
-                        <p>Hepatitis</p>
-                    </div>
-                    <div class="treatment_disease">
-                        <input type="radio" name="type_of_disease" value="Meningitis"
-                        form="treatment_form"/> 
-                        <p>Meningitis</p>
-                    </div>
-                </div>
-            </div>
-            <div class="treatment_choose">
-                <p>Choose where you want to be treated:</p>
-                <div class="treatment_diseases" style="margin-left: -10px;">
-                    <div class="treatment_disease">
-                        <input type="radio" name="place_of_treatment" value="Hospital treatment"
-                        form="treatment_form"/> 
-                        <p>Hospital treatment</p>
-                    </div>
-                    <div class="treatment_disease">
-                        <input type="radio" name="place_of_treatment" value="Home treatment"
-                        form="treatment_form"/> 
-                        <p>Home treatment</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    <?php endif; ?>
     <form method="GET" action="" style="display: flex;flex-direction:column;">
-        <?php if($date === "") :?>
             <div class="appointment_container2" style="margin-top: 20px;">
                 <p class="appointment_date_text">Enter the date to schedule an appointment:</p>
-                <input class="appointment_date" placeholder="Y-m-d" name="date" value=""/>
+                <input class="appointment_date" type="date" name="date" style="width: 180px;"
+                min="<?php echo (new DateTime('tomorrow'))->format('Y-m-d'); ?>"/>
                 <button class="appointment_confirm" type="submit">Confirm</button>
             </div>
-        <?php endif; ?>
+            <?php if($treatments !== "") :?>
+                <div>
+                    <div class="treatment_choose">
+                        <p>Choose one of the offered diseases:</p>  
+                        <div class="treatment_diseases">
+                            <div class="treatment_disease">
+                                <input type="radio" name="type_of_disease" value="Genital herpes"
+                                form="treatment_form" checked/> 
+                                <p>Genital herpes</p>
+                            </div>
+                            <div class="treatment_disease">
+                                <input type="radio" name="type_of_disease" value="Hepatitis"
+                                form="treatment_form"/> 
+                                <p>Hepatitis</p>
+                            </div>
+                            <div class="treatment_disease">
+                                <input type="radio" name="type_of_disease" value="Meningitis"
+                                form="treatment_form"/> 
+                                <p>Meningitis</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="treatment_choose">
+                        <p>Choose where you want to be treated:</p>
+                        <div class="treatment_diseases" style="margin-left: -10px;">
+                            <div class="treatment_disease">
+                                <input type="radio" name="place_of_treatment" value="Hospital treatment"
+                                form="treatment_form" checked/> 
+                                <p>Hospital treatment</p>
+                            </div>
+                            <div class="treatment_disease">
+                                <input type="radio" name="place_of_treatment" value="Home treatment"
+                                form="treatment_form"/> 
+                                <p>Home treatment</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
         <div class="appointment_container3" style="align-items: center;">    
         <?php foreach($appointments as $appointment) :?>
                 <?php $flag=0 ?>

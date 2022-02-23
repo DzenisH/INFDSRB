@@ -3,7 +3,7 @@
 let userId = 0;
 let typeT = '';
 
-function showPopup(id,name,type){
+function showPopup(id,name,type,operation){  //operation is delete or accept
     const table = document.getElementById('requests_table');
     const popup = document.getElementById('request_popup');
     const text = document.getElementById('request_popup_text');
@@ -20,8 +20,17 @@ function showPopup(id,name,type){
 function accept(){
     const input = document.getElementById('requests_input');
     const input2 = document.getElementById('requests_input2');
+    document.getElementById("requests_input3").value = "accept"  //type of operation
     input.value = userId;
     input2.value = typeT;
+    const form = document.getElementById('requests_form'); 
+    form.submit();
+}
+
+function deleteUser(id,type){
+    document.getElementById("requests_input").value = id
+    document.getElementById("requests_input2").value = type
+    document.getElementById("requests_input3").value = "decline"
     const form = document.getElementById('requests_form'); 
     form.submit();
 }
@@ -45,6 +54,7 @@ function reject(){
                 <button class="requests_btn_no" onclick="reject()" type="button">NO</button>
                 <input id="requests_input" style="display:none" name="id"/> 
                 <input id="requests_input2" style="display: none;" name="type"/>
+                <input id="requests_input3" style="display: none;" name="operation"/>
             </form>
         </div>
     </div>
@@ -61,6 +71,7 @@ function reject(){
                 <th>Email</th>   
                 <th>Type of user</th>   
                 <th>Accept</th>   
+                <th>Delete</th>   
             </tr>
         </thead>
         <tbody>
@@ -75,8 +86,18 @@ function reject(){
                     <td><?php echo $user['phone_number'] ?></td>
                     <td><?php echo $user['email'] ?></td>
                     <td><?php echo $user['type'] ?></td>
-                    <td><button class="requests_btn"
-                    onclick="showPopup(<?php echo $user['id'] ?>,'<?php echo $user['name'] ?>','<?php echo $user['type'] ?>')">ACCEPT</button></td>
+                    <td>
+                        <button class="requests_btn"
+                        onclick="showPopup(<?php echo $user['id'] ?>,'<?php echo $user['name'] ?>','<?php echo $user['type'] ?>')">
+                            ACCEPT
+                        </button>
+                    </td>
+                    <td>
+                        <button onclick="deleteUser(<?php echo $user['id']?>,'<?php echo $user['type'] ?>')" 
+                        class="requests_btn" style="background-color: red;">
+                            DELETE
+                        </button>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>

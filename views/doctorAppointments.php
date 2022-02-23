@@ -22,7 +22,8 @@
                 <th>Gender</th>
                 <th>Date of Birth</th>
                 <th>Phone Number</th>   
-                <th>Email</th> 
+                <th>Email</th>  
+                <th>Date and Time of appointment</th> 
                 <th>Perform an examination</th>  
             </tr>
         </thead>
@@ -37,8 +38,13 @@
                     <td><?php echo $appointment['date_of_birth'] ?></td>
                     <td><?php echo $appointment['phone_number'] ?></td>
                     <td><?php echo $appointment['email'] ?></td>
-                    <td><button class="doctorAppointments_perform_btn"
-                    onclick="perform('<?php echo $appointment['patient_id'] ?>','<?php echo $appointment['id'] ?>')">Perform</button></td>
+                    <td><?php echo $appointment['date_time'] ?></td>
+                    <td>
+                        <button class="doctorAppointments_perform_btn"
+                        onclick="perform('<?php echo $appointment['patient_id'] ?>','<?php echo $appointment['id'] ?>')">
+                            Perform
+                        </button>
+                </td>
                 </tr>
             <?php endforeach; ?>
             <input style="display: none;" name="patient_id" id="doctorAppointments_patient_id"/>

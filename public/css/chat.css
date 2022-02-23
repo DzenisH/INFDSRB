@@ -154,7 +154,7 @@
     height: 180px;
     display: flex;
     justify-content: center;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 .chat_sent_message{
@@ -188,4 +188,12 @@
 
 .chat_help{
     width: 700px
+}
+
+#chat_error_message{
+    color: red;
+    font-size: 14px;
+    margin-left: 10px;
+    margin-top: 4px;
+    display: none;
 }

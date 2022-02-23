@@ -75,7 +75,9 @@ class Database
         if(($_SESSION["user"])["type"]==="doctor"){
             $statement = $this->pdo->prepare('SELECT * FROM message WHERE doctor_id=:id ORDER BY date_of_sending');
         }else if(($_SESSION["user"])["type"] === "patient"){
-            $statement = $this->pdo->prepare('SELECT * FROM message WHERE patient_id=:id ORDER BY date_of_sending');
+            $statement = $this->pdo->prepare('SELECT * FROM message WHERE patient_id=:id
+            AND doctor_id=:doctor_id ORDER BY date_of_sending');
+            $statement->bindValue(':doctor_id',$_SESSION["user"]["doctor_id"]);
         }
         $statement->bindValue(':id',($_SESSION['user'])['id'] ?? 0);
         $statement->execute();
@@ -361,6 +363,16 @@ class Database
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getMyArticles()
+    {
+        $statement = $this->pdo->prepare('SELECT * FROM article WHERE 
+        type_of_user = :type_of_user AND user_id = :user_id');
+        $statement->bindValue(':type_of_user',$_SESSION["user"]["type"]);
+        $statement->bindValue(':user_id',$_SESSION["user"]["id"]);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getArticle($id)
     {
         $statement = $this->pdo->prepare('SELECT * FROM article WHERE id=:id');
@@ -409,29 +421,25 @@ class Database
 
     public function changePassword($user_id,$type)
     {
-        if($type === "patient"){
-            $statement = $this->pdo->prepare('UPDATE patient SET password=:password WHERE id=:id');
-            $statement->bindValue(':id',$user_id);
-            $statement->bindValue(':password',$_POST['newPassword']);
-            $_SESSION['user']['password'] = $_POST['newPassword'];
-            $statement->execute();
-        }else if($type === "doctor"){
-            $statement = $this->pdo->prepare('UPDATE doctor SET password=:password WHERE id=:id');
-            $statement->bindValue(':id',$user_id);
-            $statement->bindValue(':password',$_POST['newPassword']);
-            $_SESSION['user']['password'] = $_POST['newPassword'];  
-            $statement->execute();
-        }else{
-            $statement = $this->pdo->prepare('UPDATE admin SET password=:password WHERE id=:id');
-            $statement->bindValue(':id',$user_id);
-            $statement->bindValue(':password',$_POST['newPassword']);
-            $_SESSION['user']['password'] = $_POST['newPassword'];
-            $statement->execute();
+        switch($type)
+        {
+            case "patient":
+                $statement = $this->pdo->prepare('UPDATE patient SET password=:password WHERE id=:id');
+                break;
+            case "doctor":
+                $statement = $this->pdo->prepare('UPDATE doctor SET password=:password WHERE id=:id');
+                break;
+            case "admin":
+                $statement = $this->pdo->prepare('UPDATE admin SET password=:password WHERE id=:id');
+                break;
         }
-
+        $statement->bindValue(':id',$user_id);
+        $statement->bindValue(':password',$_POST['newPassword']);
+        $_SESSION['user']['password'] = $_POST['newPassword'];
+        $statement->execute();
     }
 
-    public function checkPasswords()  //number of old function for currently loged user
+    public function checkPasswords()  //number of old passwords for currently loged user
     {
         $statement = $this->pdo->prepare('SELECT * FROM password_history 
         WHERE user_id=:id AND type=:type');
@@ -638,6 +646,35 @@ class Database
             $statement->execute();
             return true;
         }
+    }
+
+    public function getDateForOneOfServices($typeOfService,$serviceId)
+    {
+        switch($typeOfService)
+        {
+            case "appointment":
+                $statement = $this->pdo->prepare('SELECT * FROM appointment WHERE id=:id');
+                break;
+            case "treatment":
+                $statement = $this->pdo->prepare('SELECT * FROM treatment WHERE id=:id');
+                break;
+            case "lumbar_puncture":
+                $statement = $this->pdo->prepare('SELECT * FROM lumbar_puncture WHERE id=:id');
+                break;
+        }
+        $statement->bindValue(':id',$serviceId);
+        $statement->execute();
+        $service = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return ($service[0])["date_time"];
+    }
+
+    public function deleteMessagesBetweenPatientAndDoctor($patientId,$doctorId)
+    {
+        $statement = $this->pdo->prepare('DELETE FROM message WHERE 
+        patient_id=:patient_id AND doctor_id=:doctor_id');
+        $statement->bindValue(':patient_id',$patientId);
+        $statement->bindValue(':doctor_id',$doctorId);
+        $statement->execute();
     }
 
 }

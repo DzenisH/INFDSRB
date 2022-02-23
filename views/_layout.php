@@ -24,6 +24,8 @@
     <link rel="stylesheet" href="/css/examination.css"/>
     <link rel="stylesheet" href="/css/treatment.css"/>
     <link rel="stylesheet" href="/css/verification.css"/>
+    <link rel="stylesheet" href="/css/lumbar_puncture.css"/>
+    <link rel="stylesheet" href="/css/contact.css"/>
     <!--JS-->
     <script src="/js/_layout.js" defer></script>
     <!--GOOGLE FONTS-->
@@ -33,6 +35,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600;700&display=swap" rel="stylesheet">
     <!--FONT AWESOME-->
     <script src="https://kit.fontawesome.com/681737ea39.js" crossorigin="anonymous"></script>
     <title>INFDSRB</title>
@@ -56,8 +61,10 @@
       </div>
     <?php endif; ?>
     <?php if(isset($_SESSION["user"])) :?>
-      <!-- <button style="cursor: pointer" onclick="logout()">Logout</button> -->
-      <a href="/logout" style="text-decoration: none;">Logout</a>
+      <a href="/changePassword" style="text-decoration:none;margin-left:5px">
+        Change password
+      </a>
+      <a href="/logout" style="text-decoration: none;margin-left:5px">Logout</a>
     <?php endif; ?>
   </div>
 </div>
@@ -69,33 +76,42 @@
       </a>
       <ul class="navigation">
         <li class="active"><a href="/">Home</a></li>
-        <li><a href="/about">About us</a></li>
-        <li id="relative">
-          <a href="/">Services</a>
-          <ul id="dropdown">
-            <?php if(isset($_SESSION['user']) === false) :?> 
-              <li><a href="/overview">Overview</a></li>
-            <?php elseif($_SESSION['user']['type'] === "patient") :?>
-              <li><a href="/overview">Overview</a></li>
+          <?php if(!isset($_SESSION['user'])) :?>
+            <li><a href="/overview">Services</a></li>
+          <?php endif; ?>
+          <?php if(isset($_SESSION['user'])) :?>
+            <?php if($_SESSION['user']['type'] !== "admin") :?>
+              <li id="relative">
+                <?php if($_SESSION['user']['type'] === "doctor") :?>
+                  <a href="/">Services</a>
+                <?php else :?>
+                  <a href="/overview">Services</a>
+                <?php endif; ?>
+                <?php if($_SESSION['user']['type'] === "doctor") :?>
+                  <ul id="dropdown">
+                    <li><a href="/doctor-appointments">Appointments</a></li>
+                    <li><a href="/doctor-treatments">Treatments</a></li>
+                    <li><a href="/doctor-lumbarPuncture">Lumbar Puncture</a></li>
+                  </ul>
+                <?php endif; ?>
+              </li>
             <?php endif; ?>
-            <?php if(isset($_SESSION['user'])) :?>
-              <?php if($_SESSION['user']['type'] === "doctor") :?>
-                <li><a href="/doctor-appointments">Appointments</a></li>
-              <?php endif; ?>
+          <?php endif; ?>
+        <?php if(isset($_SESSION["user"])) :?>
+          <?php if($_SESSION["user"]["type"] !== "admin"
+            && $_SESSION["user"]["type"] !== "doctor") :?>
+            <li><a href="/articles">Education</a></li>
+          <?php endif; ?>
+        <?php else :?>
+          <li><a href="/articles">Education</a></li>
+        <?php endif; ?>
+
+        <?php if(isset($_SESSION["user"])) :?>
+            <?php if($_SESSION["user"]["type"] === "admin"
+              || $_SESSION["user"]["type"] === "doctor") :?>
+              <li><a href="/myArticles">My Articles</a></li>
             <?php endif; ?>
-            <?php if(isset($_SESSION['user'])) :?>
-              <?php if($_SESSION['user']['type'] === "doctor") :?>
-                <li><a href="/doctor-treatments">Treatments</a></li>
-              <?php endif; ?>
-            <?php endif; ?>
-            <?php if(isset($_SESSION['user'])) :?>
-              <?php if($_SESSION['user']['type'] === "doctor") :?>
-                <li><a href="/doctor-lumbarPuncture">Lumbar Puncture</a></li>
-              <?php endif; ?>
-            <?php endif; ?>
-          </ul>
-        </li>
-        <li><a href="/articles">Education</a></li>
+        <?php endif; ?>
 
         <?php if(isset($_SESSION["user"]) && (($_SESSION["user"]["type"] === "admin")|| ($_SESSION["user"]["type"] === "doctor")) ):?>
           <li><a href="/addArticle">Add Article</a></li>
@@ -122,9 +138,8 @@
           <li><a href="/patients">Patients</a></li>
         <?php endif; ?>
 
-        <?php if(isset($_SESSION["user"]) && $_SESSION["user"]["type"] !== "admin") :?>
-          <li><a href="/">Contact Us</a></li>
-        <?php endif; ?>
+        <li><a href="/contact">Contact Us</a></li>
+
       </ul>
       <p style="align-self:center"><?php echo isset($_SESSION['user']) && $_SESSION["user"]["type"] !== "admin"  ?  $_SESSION['user']['username'] : '' ?></p>
     </div>

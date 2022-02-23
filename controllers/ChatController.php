@@ -16,13 +16,15 @@ class ChatController{
             $doctor = $router->db->getDoctor($_SESSION["user"]["doctor_id"]);
         }
         $messages = $router->db->getMessages();
-        if(count($messages) > 0){
-            $id = $_GET["id"] ?? $messages[0]["patient_id"];
+        if(count($messages) > 0 || isset($_GET["id"])){
+            $id = $_GET["id"] ?? $messages[0]["patient_id"];   
+        }else if(count($messages) === 0 && !isset($_GET["id"]) && $_SESSION["user"]["type"] === "doctor"){
+            $id = ($patients[0])["id"]; 
         }
         $patient = $router->db->getPatient($id);
         $_SESSION["currentPatient"] = $patient;
         $router->renderView('chat',[
-            "patients" => $patients,
+            "patients" => count($patients) === 0 ? "" : $patients,
             "messages" => count($messages) === 0 ? '' : $messages,
             "CurrentPatient" => $patient === '' ? '' : $patient,
             "doctor" => $doctor

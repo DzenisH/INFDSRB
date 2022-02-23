@@ -19,6 +19,10 @@ class RequestChangeController
         if($_SERVER['REQUEST_METHOD'] === "POST"){
             $id = $_POST["id"];
             $type = $_POST["type"]; //approve or decline
+            $patient = $router->db->getPatient($id);
+            if($type === "approve"){
+                $router->db->deleteMessagesBetweenPatientAndDoctor($id,$patient['doctor_id']);
+            }
             $router->db->postRequestChange($id,$type);
             header('Location:/request-change');
         }

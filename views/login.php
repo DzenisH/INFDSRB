@@ -21,7 +21,8 @@
         </p>
         <form class="login_form" action="" method="POST">
             <input class="login_input" placeholder="Email" name="email"/>
-            <input class="login_input" placeholder="Password" name="password"/>
+            <input class="login_input" placeholder="Password" name="password"
+            type="password"/>
             <button type="submit" class="login_sign">SIGN IN</button>
             <div class="login_container3">
                 <a href="/signup" class="login_signup">- Or Sign Up -</a>

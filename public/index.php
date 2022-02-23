@@ -7,6 +7,7 @@ use app\controllers\CardboardController;
 use app\controllers\ChangePassword;
 use app\controllers\ChatController;
 use app\controllers\ChoiceController;
+use app\controllers\ContactController;
 use app\controllers\DeleteController;
 use app\controllers\DoctorAppointmentsController;
 use app\controllers\DoctorLumbarPunctureController;
@@ -15,6 +16,7 @@ use app\controllers\ExaminationController;
 use app\controllers\HomeController;
 use app\controllers\LogoutController;
 use app\controllers\LumbarPunctureController;
+use app\controllers\MyArticlesController;
 use app\controllers\OverviewController;
 use app\controllers\PatientController;
 use app\controllers\RequestChangeController;
@@ -67,5 +69,9 @@ $router->post('/lumbar-puncture',[LumbarPunctureController::class,'addLumbarPunc
 $router->get('/doctor-lumbarPuncture',[DoctorLumbarPunctureController::class,'get']);
 $router->get('/verification',[VerificationController::class,'get']);
 $router->post('/verification',[VerificationController::class,'verify']);
+$router->get('/myArticles',[MyArticlesController::class,'get']);
+$router->post('/myArticles',[MyArticlesController::class,'deleteArticle']);
+$router->get('/contact',[ContactController::class,'get']);
+
 
 $router->resolve();

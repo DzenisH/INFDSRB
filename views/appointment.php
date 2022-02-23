@@ -1,11 +1,13 @@
 
 <script>
+
     function submitAppointment(date){
         const form = document.getElementById('appointment_form');
         const time = document.getElementById('time');
         time.value = date;
         form.submit();
     }
+    
 </script>
 
 <?php 
@@ -18,7 +20,9 @@
     <form method="GET" action="">
         <div class="appointment_container2">
             <p class="appointment_date_text">Enter the date to schedule an appointment:</p>
-            <input class="appointment_date" placeholder="Y-m-d" name="date" value=""/>
+            <input class="appointment_date" type="date" name="date" style="width: 180px;"
+            min="<?php echo (new DateTime('tomorrow'))->format('Y-m-d'); ?>" 
+             />
             <button class="appointment_confirm" type="submit">Confirm</button>
         </div>
         <div class="appointment_container3">
@@ -42,6 +46,6 @@
         </div>
     </form>
     <input value="$treatment" name="time" form="appointment_form"
-    style="display: none;" id="time" />
+    style="display: none;" id="time"/>
     <form method="POST" action="" id="appointment_form" style="display: none;"></form>
 </div>

@@ -33,16 +33,28 @@ class ExaminationController
         if(isset($lumbarPunctureId)===true && isset($done)===true){
             $router->db->finishLumbarPuncture($lumbarPunctureId,$done);
         }
-
+        
         $router->renderView('examination',[]);
     }
 
     public function addExamination(Router $router)
     {
-        $currentDate = new DateTime();
         $cardboard = $router->db->getCardboard($_GET["patient_id"]);
+        $date = "";
+
+        if(isset($_GET["appointment_id"])){
+            $date = $router->db->getDateForOneOfServices("appointment",$_GET["appointment_id"]);
+        }
+
+        if(isset($_GET["treatment_id"])){
+            $date = $router->db->getDateForOneOfServices("treatment",$_GET["treatment_id"]);
+        }
+
+        if(isset($_GET["lumbar_puncture_id"])){
+            $date = $router->db->getDateForOneOfServices("lumbar_puncture",$_GET["lumbar_puncture_id"]);
+        }
         $data = [
-            "date" => $currentDate,
+            "date" => DateTime::createFromFormat('Y-m-d H:i:s', $date),
             "diagnosis" => $_POST['diagnosis'],
             "therapy" => $_POST['therapy'],
             "cardboard_id" =>  $cardboard['id'],
@@ -52,6 +64,7 @@ class ExaminationController
         $examination = new Examination();
         $examination->load($data);
         $examination->save();
+
         header('Location:/');
         $router->renderView('examination',[]);
     }

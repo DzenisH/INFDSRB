@@ -10,10 +10,12 @@ function showPopup(id,name,type,last_name){
     userId = id;
     typeT = type;
     text.textContent = `Are you sure you want to delete ${name} ${last_name}?`;
+    text.style.fontWeight = 'bold';
     popup.style.display = 'flex';
     popup.style.opacity = 1;
     popup.style.zIndex = 1000;
     table.style.opacity = 0.4;
+    window.scrollTo(0,0);
 }
 
 function accept(){
@@ -36,7 +38,7 @@ function reject(){
 
 <div class="patients_container" style="position: relative;">
     <h1 class="patients_header" style="margin-right:150px">Delete User</h1>
-    <div class="requests_popup" id="delete_popup">
+    <div class="requests_popup" id="delete_popup" style="background-color:#808080;">
         <p class="delete_popup_text" id="delete_popup_text"></p>
         <div class="requests_btn_container">
             <form method="POST" action="" id="delete_form">

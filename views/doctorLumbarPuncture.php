@@ -24,6 +24,7 @@
                 <th>Phone Number</th>   
                 <th>Email</th> 
                 <th>Taking Medication?</th> 
+                <th>Date and time of Lumbar Puncture</th> 
                 <th>Finish treatment</th>  
             </tr>
         </thead>
@@ -39,6 +40,7 @@
                     <td><?php echo $lumbar_punture['phone_number'] ?></td>
                     <td><?php echo $lumbar_punture['email'] ?></td>
                     <td><?php echo $lumbar_punture['takes_medication'] === "1" ? "YES" : "NO" ?></td>
+                    <td><?php echo $lumbar_punture['date_time'] ?></td>
                     <td><button class="doctorAppointments_perform_btn"
                     onclick="perform('<?php echo $lumbar_punture['patient_id'] ?>','<?php echo $lumbar_punture['id'] ?>')">Finish</button></td>
                 </tr>

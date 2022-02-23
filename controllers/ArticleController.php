@@ -50,7 +50,7 @@ class ArticleController
             $article = new Article();
             $article->load($data);
             $article->save();
-            header('Location:/articles');
+            header('Location:/myArticles');
         }
         $router->renderView('addArticle',[]);
     }

@@ -25,7 +25,8 @@ class ChangePassword
                 "type" => $_SESSION['user']['type'],
                 "user_id" => $_SESSION['user']['id']
             ];
-            if($router->db->checkOldPasswords($_POST['newPassword']) === false){
+            $success = $router->db->checkOldPasswords($_POST['newPassword']);
+            if( $success === false){
                 $passwordHistory->load($data);
                 $passwordHistory->save();
                 if($router->db->checkPasswords() > 3){  //database will keep max 3 rows in password_history for one user
@@ -34,6 +35,8 @@ class ChangePassword
                 $router->db->changePassword($_SESSION['user']['id'],$_SESSION['user']['type']);
             }
         }
-        $router->renderView('changePassword',[]);
+        $router->renderView('changePassword',[
+            "success" => $success
+        ]);
     }
 }
