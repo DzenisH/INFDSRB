@@ -15,6 +15,7 @@
         const place_of_birth = document.getElementById('signup-place_of_birth');
         const country_of_birth = document.getElementById('signup-country_of_birth');
         const phone_number = document.getElementById('signup-phone_number');
+        const date = document.getElementById("signup_date");
         const phoneRegex = /\D/;
         let flag = false;
         const image = document.getElementById('signup_image');
@@ -79,11 +80,14 @@
         }else{
             country_of_birth.style.border = "none";
         }
+        if(date.value === ""){
+            date.style.border = "2px solid red";
+        }
         if(password.value.match(passwordRegex) && email.value.match(emailRegex)
             && (jmbg.value).length === 14 && password.value === passwordConfirm.value &&
             (name.value).length > 0 && (last_name.value).length > 0 && (place_of_birth.value).length > 0 
             && (country_of_birth.value).length > 0 && !phone_number.value.match(phoneRegex)
-            && (phone_number.value).length > 0 && !flag){   
+            && (phone_number.value).length > 0 && !flag && date.value !== ""){   
             return true;
         }else{
             return false;
@@ -138,7 +142,7 @@
                         <p id="email-error" class="signup_error">anystring@anystring.anystring(without multiple @)</p>
                     </div>
                     <div class="signup_container7">
-                        <input type="date" required name="date_of_birth" class="signup_input"/>
+                        <input type="date" required name="date_of_birth" class="signup_input" id="signup_date"/>
                         <input class="signup_input" placeholder="JMBG" type="number" name="jmbg" id="signup-jmbg"/>
                         <p id="jmbg-error" class="signup_error">Enter exactly 14 characters</p>
                         <input class="signup_input" placeholder="Phone Number" name="phone_number" id="signup-phone_number"/>

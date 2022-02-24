@@ -47,7 +47,8 @@
   <div class="loginContainer2">
     <?php if(isset($_SESSION["user"]) && $_SESSION["user"]["type"] !== "admin") :?>
       <?php if((isset($_SESSION["user"]["doctor_id"]) === true && 
-        $_SESSION["user"]["doctor_id"] !== null) || ($_SESSION["user"]["type"] === "doctor")) :?>
+        $_SESSION["user"]["doctor_id"] !== null) || 
+        ($_SESSION["user"]["type"] === "doctor" && $_SESSION["numberOfPatients"] !== 0)) :?>
         <a href="/chat">
           <i class="fas fa-comments message_icon"></i>
         </a>

@@ -53,12 +53,22 @@ class Database
             }
         }
         if(count($patient) === 0){
-            $statement2 = $this->pdo->prepare('SELECT * FROM doctor WHERE email = :email AND password = :password
-            AND accepted=1 AND verified=1');
-            $statement2->bindValue(':email',$login['email']);
-            $statement2->bindValue(':password',$login['password']);
-            $statement2->execute();
-            $patient =  $statement2->fetchAll(PDO::FETCH_ASSOC);
+            $statement = $this->pdo->prepare('SELECT * FROM doctor WHERE email = :email AND password = :password');
+            $statement->bindValue(':email',$login['email']);
+            $statement->bindValue(':password',$login['password']);
+            $statement->execute();
+            $patient = $statement->fetchAll(PDO::FETCH_ASSOC);
+            if(count($patient) !== 0){
+                $statement2 = $this->pdo->prepare('SELECT * FROM doctor WHERE email = :email AND password = :password
+                AND accepted=1 AND verified=1');
+                $statement2->bindValue(':email',$login['email']);
+                $statement2->bindValue(':password',$login['password']);
+                $statement2->execute();
+                $patient = $statement2->fetchAll(PDO::FETCH_ASSOC);
+                if(count($patient) === 0){
+                    return ''; 
+                }
+            }
         }
         if(count($patient) === 0)
         {
@@ -629,8 +639,7 @@ class Database
             if(count($doctor) === 0){
                 return false;  //code is incorrect
             }else{
-                $statement = $this->pdo->prepare('UPDATE doctor SET verified=1
-                AND verification_code=NULL WHERE 
+                $statement = $this->pdo->prepare('UPDATE doctor SET verified=1,verification_code=NULL WHERE 
                 email=:email AND verification_code=:code');
                 $statement->bindValue(':email',$email);
                 $statement->bindValue(':code',$code);

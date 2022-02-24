@@ -24,6 +24,10 @@ class AccountController
             {
                 if(count($user) !== 0){  
                     $_SESSION["user"] = $user[0]; //session variable user contain user that is currently loged in
+                    if($_SESSION["user"]["type"] === "doctor"){
+                        //we don't won't to show message option if doctor don't have patients
+                       $_SESSION["numberOfPatients"] = $router->db->getNumberOfPatients($_SESSION["user"]["id"]);
+                    }
                     if($_SESSION["user"]["type"] === "patient" && $_SESSION["user"]["doctor_id"] === null){
                         header('Location:/choice');
                     }else{
